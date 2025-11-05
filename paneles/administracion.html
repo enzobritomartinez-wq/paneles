@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PANEL DE CONTROL - ADMINISTRACIÓN</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/zv99dUA.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+  <div class="max-w-4xl mx-auto"><!-- Header -->
+   <div class="text-center mb-8"><!-- Logo -->
+    <div class="mb-6"><img src="https://i.imgur.com/zv99dUA.png" alt="Logo de la organización" class="mx-auto h-24 w-auto object-contain" onerror="this.src=''; this.alt='Logo no disponible'; this.style.display='none';">
+    </div>
+    <h1 class="text-4xl font-bold text-gray-800 mb-2">PANEL DE CONTROL - ADMINISTRACIÓN</h1>
+   </div><!-- Panel de botones -->
+   <div class="bg-white rounded-2xl shadow-xl p-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"><!-- 1. Unidad de Servicios Internos -->
+     <div class="relative w-full"><!-- Botón principal -->
+      <div class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl relative cursor-pointer"><!-- Contenido principal sin enlace -->
+       <div class="block">
+        <div class="text-5xl mb-4">
+         📊
+        </div>
+        <h3 class="text-2xl font-bold mb-3">Unidad de Servicios Internos</h3>
+       </div><!-- Botón de menú desplegable --> <button onclick="toggleMenu()" class="absolute top-3 right-3 bg-green-800 hover:bg-green-900 rounded-full p-2 transition-colors">
+        <svg id="menuArrow" class="w-4 h-4 text-white transition-transform duration-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg></button>
+      </div><!-- Menú desplegable -->
+      <div id="dropdownMenu" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-10"><a href="https://docs.google.com/spreadsheets/d/1hToscp05EBHkAU2k4raGkULKVGMPD10ZMx8Rqlj-a8c/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">📋</span> <span class="text-gray-700 font-medium">Consignaciones</span> </a> <a href="https://docs.google.com/spreadsheets/d/1Xe5ojoAC_RmZjpjlgpDYQh6C0VMx6c9nmZmX1T9GmyI/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">🆓</span> <span class="text-gray-700 font-medium">Usados Libres</span> </a> <a href="https://docs.google.com/spreadsheets/d/1_Kl7pYIlJY2C7UNzZ7oP-eFg0tAXvZgqxDpU0cMiL4o/edit?gid=1193906348#gid=1193906348" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">💰</span> <span class="text-gray-700 font-medium">Usados Vendidos</span> </a> <a href="https://docs.google.com/spreadsheets/d/1Wr4rcRv9HeTMGmjVMOMwvAeFwUN6_el6HWBhapSCmdc/edit?gid=1193906348#gid=1193906348" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">📦</span> <span class="text-gray-700 font-medium">Faltantes Administración</span> </a> <a href="https://docs.google.com/spreadsheets/d/1Pepu-A0ED67ZPUugLqxmp-aIOis0i9Hk6f2bngTfmBc/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">🛡️</span> <span class="text-gray-700 font-medium">Garantías</span> </a> <a href="https://docs.google.com/spreadsheets/d/1Gm5QJCId3x61W3wqCbxL5KlDovEVgArq5kVnx9WgB6I/edit?gid=1193906348#gid=1193906348" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors"> <span class="text-2xl mr-3">✅</span> <span class="text-gray-700 font-medium">Usados Finalizados</span> </a>
+      </div>
+     </div><!-- 2. Pago de Comisión -->
+     <div class="relative w-full"><!-- Botón principal -->
+      <div class="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl relative cursor-pointer" onclick="toggleComisionesMenu()">
+       <div class="text-5xl mb-4">
+        💳
+       </div>
+       <h3 class="text-2xl font-bold mb-3">Pago de Comisión</h3><!-- Botón de menú desplegable --> <button onclick="event.stopPropagation(); toggleComisionesMenu()" class="absolute top-3 right-3 bg-teal-800 hover:bg-teal-900 rounded-full p-2 transition-colors">
+        <svg id="comisionesArrow" class="w-4 h-4 text-white transition-transform duration-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg></button>
+      </div><!-- Menú desplegable -->
+      <div id="comisionesDropdownMenu" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-10"><a href="https://docs.google.com/spreadsheets/d/1-i3hJzlBDHnnkxCLq_IPQi6zhc-quZmFjPFrAB8QKTY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">📅</span> <span class="text-gray-700 font-medium">PAGO DE COMISIONES OCTUBRE 2025</span> </a> <a href="https://docs.google.com/spreadsheets/d/1TZao5ZsHjiV_VuESZnPl8aBSEb7ePDx-VEllnviZPjY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">📅</span> <span class="text-gray-700 font-medium">PAGO DE COMISIONES NOVIEMBRE 2025</span> </a> <a href="https://docs.google.com/spreadsheets/d/19o8F_PuE9aAu2Oq00LshzXJfgmII7ohMvLbUp9BoBUs/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors"> <span class="text-2xl mr-3">📅</span> <span class="text-gray-700 font-medium">PAGO DE COMISIONES DICIEMBRE 2025</span> </a>
+      </div>
+     </div><!-- 3. Comisiones Pagadas -->
+     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1AjgfWfeOcA1ZBrHp-ZlDcP-6JZFfvSSVShENRGUcyck/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        ✅
+       </div><h3 class="text-2xl font-bold mb-3">Comisiones Pagadas</h3></a>
+     </div><!-- 5. Adelantos -->
+     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1ZA9xNUb4LCRv8YrS7DslFRixPlstnmlorvhL3GMMR-Y/edit?gid=36422580#gid=36422580" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        💵
+       </div><h3 class="text-2xl font-bold mb-3">Adelantos</h3></a>
+     </div><!-- 6. Reparación y Gastos de Estructura -->
+     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1XfM4oqVQaEv9VECRA-kSxQsS9pq1A0vwMlCLABxvXv4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        🔧
+       </div><h3 class="text-2xl font-bold mb-3">Reparación y Gastos de Estructura</h3></a>
+     </div><!-- 7. Documentos -->
+     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/15BZDBjOXxJax-SkzK_OL_8Ozhk7RB7fMNgd6rJ-90cI/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        📄
+       </div><h3 class="text-2xl font-bold mb-3">Documentos</h3></a>
+     </div><!-- 8. Préstamos -->
+     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1uXGmPu_1tq0YMiz3KtRYateVqCrTr3zQvk0xDLVM3Xs/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        💰
+       </div><h3 class="text-2xl font-bold mb-3">Préstamos</h3></a>
+     </div><!-- 9. Control de Stock -->
+     <div class="relative w-full"><a href="https://bymautomotores.my.canva.site/control-de-stock" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        📦
+       </div><h3 class="text-2xl font-bold mb-3">Control de Stock</h3></a>
+     </div><!-- 10. Deudas Clientes -->
+     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/19JjiDyvyYIu8cUD4mHmU0NUlfNJ2m1L89Cfcd1SRH0w/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        💸
+       </div><h3 class="text-2xl font-bold mb-3">Deudas Clientes</h3></a>
+     </div><!-- 10. Contador de Billetes -->
+     <div class="relative w-full"><a href="https://bymautomotores.static.domains/calculadoradebilletes" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        🧮
+       </div><h3 class="text-2xl font-bold mb-3">Contador de Billetes</h3></a>
+     </div><!-- 11. Pedidos Gerencia -->
+     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1cd7_5T82OkIjFx1m-9k8uA20yChfu7C9JaMRcQ1dHCI/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-violet-600 to-violet-700 hover:from-violet-700 hover:to-violet-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        📋
+       </div><h3 class="text-2xl font-bold mb-3">Pedidos Gerencia</h3></a>
+     </div><!-- 12. Garantías -->
+     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1LNv7Enndcz4d1s08NX_j-eRZQ4avvzD9QAtrJ7Tk-F8/edit?gid=558568206#gid=558568206" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        🛡️
+       </div><h3 class="text-2xl font-bold mb-3">Garantías</h3></a>
+     </div><!-- 13. Choques -->
+     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1gRfbrg6BP6RksNOg6TVDV1k0wGboYg7nXcgnNV8UlfQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
+       <div class="text-5xl mb-4">
+        🚗
+       </div><h3 class="text-2xl font-bold mb-3">Choques</h3></a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('menuArrow');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+            } else {
+                menu.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+            }
+        }
+
+        function toggleComisionesMenu() {
+            const menu = document.getElementById('comisionesDropdownMenu');
+            const arrow = document.getElementById('comisionesArrow');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+            } else {
+                menu.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+            }
+        }
+
+        // Cerrar los menús si se hace clic fuera de ellos
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdownMenu');
+            const comisionesMenu = document.getElementById('comisionesDropdownMenu');
+            const button = event.target.closest('button');
+            const menuContainer = event.target.closest('.relative');
+            
+            if (!menuContainer) {
+                if (!menu.classList.contains('hidden')) {
+                    menu.classList.add('hidden');
+                    document.getElementById('menuArrow').classList.remove('rotate-180');
+                }
+                if (!comisionesMenu.classList.contains('hidden')) {
+                    comisionesMenu.classList.add('hidden');
+                    document.getElementById('comisionesArrow').classList.remove('rotate-180');
+                }
+            }
+        });
+
+
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999e1a82871df1ca',t:'MTc2MjM2NDA4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

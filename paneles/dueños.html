@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PANEL DE CONTROL - DUEÑOS</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/zv99dUA.png">
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .menu-item {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .menu-item:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="min-h-full bg-gradient-to-br from-purple-600 via-pink-500 to-indigo-600">
+  <main class="min-h-full flex items-center justify-center p-6"><!-- Página Principal -->
+   <div id="main-page" class="w-full max-w-2xl"><!-- Logo y Título del menú -->
+    <div class="text-center mb-8 fade-in">
+     <div class="mb-4"><img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-20 h-20 mx-auto rounded-full shadow-lg" onerror="this.src=''; this.alt='Logo no disponible'; this.style.display='none';">
+     </div>
+     <h1 id="menu-title" class="text-4xl font-bold text-white mb-2">Mi Menú</h1>
+     <div class="w-20 h-1 bg-gradient-to-r from-pink-400 to-purple-400 mx-auto rounded-full"></div>
+    </div><!-- Contenedor del menú -->
+    <nav class="space-y-4"><!-- Primera fila - 4 botones principales -->
+     <div class="grid grid-cols-4 gap-3 fade-in" style="animation-delay: 0.1s;"><!-- Enlace 1 --> <a id="link1" href="https://docs.google.com/spreadsheets/d/1XhVx4hkTB_YxvPHCLEQQsxoU-COY5-ypyOkwuB0476U/edit?gid=633278733#gid=633278733" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-3 text-white font-semibold text-center overflow-hidden aspect-square flex flex-col items-center justify-center">
+       <div class="mb-1">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+        </svg>
+       </div><span id="link1-text" class="text-xs">Gastos Personales</span> </a> <!-- Enlace 2 --> <a id="link2" href="https://docs.google.com/spreadsheets/d/1s_MfV9GZv8uTnw4Ctktlv4fVrrvMsmEKxJHhlKY2Cmk/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-3 text-white font-semibold text-center overflow-hidden aspect-square flex flex-col items-center justify-center">
+       <div class="mb-1">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+        </svg>
+       </div><span id="link2-text" class="text-xs">Naranja</span> </a> <!-- Enlace 3 --> <a id="link3" href="https://docs.google.com/spreadsheets/d/1Hn6UPLl4eQq7bw0D2FtoCi8wpuTRXDh_1_rUrA0igTE/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-3 text-white font-semibold text-center overflow-hidden aspect-square flex flex-col items-center justify-center">
+       <div class="mb-1">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+       </div><span id="link3-text" class="text-xs">Macro</span> </a> <!-- Enlace 4 --> <a id="link4" href="https://docs.google.com/spreadsheets/d/1dhRxkL05srgeNI3zpSRZO4uX46_4fyFyMgAFbZqkFF0/edit?gid=2040246134#gid=2040246134" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-3 text-white font-semibold text-center overflow-hidden aspect-square flex flex-col items-center justify-center">
+       <div class="mb-1">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+        </svg>
+       </div><span id="link4-text" class="text-xs">Flujo de Efectivo</span> </a>
+     </div><!-- Segunda fila - Análisis Mensual, Capitalización, Pendientes -->
+     <div class="grid grid-cols-3 gap-3 fade-in" style="animation-delay: 0.2s;"><!-- Análisis Mensual --> <button id="analisis-btn" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-3 text-white font-semibold text-center overflow-hidden aspect-square flex flex-col items-center justify-center">
+       <div class="mb-1">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+       </div><span class="text-xs">Análisis Mensual</span> </button> <!-- Capitalización --> <button id="capitalizacion-btn" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-3 text-white font-semibold text-center overflow-hidden aspect-square flex flex-col items-center justify-center">
+       <div class="mb-1">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+        </svg>
+       </div><span id="link6-text" class="text-xs">Capitalización</span> </button> <!-- Pendientes --> <a href="https://docs.google.com/spreadsheets/d/1fFTMs6i91TJu3jOFhL2f8QyS2MDFXki9DfqT9XNbK3s/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-3 text-white font-semibold text-center overflow-hidden aspect-square flex flex-col items-center justify-center">
+       <div class="mb-1">
+        <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+        </svg>
+       </div><span class="text-xs">Pendientes</span> </a>
+     </div><!-- Tercera fila - Panel de Control -->
+     <div class="flex justify-center fade-in" style="animation-delay: 0.3s;"><a href="https://docs.google.com/spreadsheets/d/1M_cnuPux8gvweQc073rQCMrpnXpSSJ7iGQ7g0bdVyT4/edit?gid=979336212#gid=979336212" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-64 bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-4 text-white font-semibold text-center overflow-hidden">
+       <div class="mb-2">
+        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+        </svg>
+       </div><span class="text-lg">Panel de Control</span> </a>
+     </div>
+    </nav><!-- Decoración inferior -->
+    <div class="text-center mt-8 fade-in" style="animation-delay: 0.4s;">
+     <div class="flex justify-center space-x-2">
+      <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+      <div class="w-2 h-2 bg-lime-400 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+      <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+     </div>
+    </div>
+   </div><!-- Página de Análisis Mensual -->
+   <div id="analisis-page" class="w-full max-w-2xl hidden">
+    <div class="text-center mb-8 fade-in"><button id="back-from-analisis" class="absolute left-6 top-6 text-white hover:text-pink-300 transition-colors">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg></button>
+     <h1 class="text-4xl font-bold text-white mb-2">Análisis Mensual</h1>
+     <div class="w-20 h-1 bg-gradient-to-r from-pink-400 to-purple-400 mx-auto rounded-full"></div>
+    </div>
+    <nav class="space-y-4">
+     <div class="grid grid-cols-2 gap-4 fade-in"><a href="https://docs.google.com/spreadsheets/d/1IqJ8Em0l1FD9H7mFgHCkycE1WSKDo3bJRajHyj6vK2c/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-6 text-white font-semibold text-center overflow-hidden">
+       <div class="mb-2">
+        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+       </div><span class="text-lg">Septiembre</span> </a> <a href="#" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-6 text-white font-semibold text-center overflow-hidden">
+       <div class="mb-2">
+        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+       </div><span class="text-lg">Octubre</span> </a> <a href="#" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-6 text-white font-semibold text-center overflow-hidden">
+       <div class="mb-2">
+        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+       </div><span class="text-lg">Noviembre</span> </a> <a href="#" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-6 text-white font-semibold text-center overflow-hidden">
+       <div class="mb-2">
+        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+       </div><span class="text-lg">Diciembre</span> </a>
+     </div>
+    </nav>
+   </div><!-- Página de Capitalización -->
+   <div id="capitalizacion-page" class="w-full max-w-2xl hidden">
+    <div class="text-center mb-8 fade-in"><button id="back-from-capitalizacion" class="absolute left-6 top-6 text-white hover:text-pink-300 transition-colors">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg></button>
+     <h1 class="text-4xl font-bold text-white mb-2">Capitalización</h1>
+     <div class="w-20 h-1 bg-gradient-to-r from-pink-400 to-purple-400 mx-auto rounded-full"></div>
+    </div>
+    <nav class="space-y-4">
+     <div class="grid grid-cols-2 gap-4 fade-in"><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRu5qfIvqlymy1nky0T3uiqXdIv3vVtYN0UUVBh7QM89VW0Ozre-ziDQrHA7gO1UDcUTRh_D-tdTNE4/pubhtml?gid=1985549535&amp;single=true" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-6 text-white font-semibold text-center overflow-hidden">
+       <div class="mb-2">
+        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+        </svg>
+       </div><span class="text-lg">Septiembre</span> </a> <a href="https://docs.google.com/spreadsheets/d/1-i3hJzlBDHnnkxCLq_IPQi6zhc-quZmFjPFrAB8QKTY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-6 text-white font-semibold text-center overflow-hidden">
+       <div class="mb-2">
+        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+        </svg>
+       </div><span class="text-lg">Octubre</span> </a> <a href="https://docs.google.com/spreadsheets/d/1-i3hJzlBDHnnkxCLq_IPQi6zhc-quZmFjPFrAB8QKTY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-6 text-white font-semibold text-center overflow-hidden">
+       <div class="mb-2">
+        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+        </svg>
+       </div><span class="text-lg">Noviembre</span> </a> <a href="https://docs.google.com/spreadsheets/d/1-i3hJzlBDHnnkxCLq_IPQi6zhc-quZmFjPFrAB8QKTY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="menu-item relative block w-full bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-xl p-6 text-white font-semibold text-center overflow-hidden">
+       <div class="mb-2">
+        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+        </svg>
+       </div><span class="text-lg">Diciembre</span> </a>
+     </div>
+    </nav>
+   </div>
+  </main>
+  <script>
+        // Configuración por defecto
+        const defaultConfig = {
+            menu_title: "Panel de Control - Dueños",
+            link1_text: "Gastos Personales",
+            link1_url: "https://docs.google.com/spreadsheets/d/1XhVx4hkTB_YxvPHCLEQQsxoU-COY5-ypyOkwuB0476U/edit?gid=633278733#gid=633278733",
+            link2_text: "Naranja", 
+            link2_url: "https://docs.google.com/spreadsheets/d/1s_MfV9GZv8uTnw4Ctktlv4fVrrvMsmEKxJHhlKY2Cmk/edit?usp=sharing",
+            link3_text: "Macro",
+            link3_url: "https://docs.google.com/spreadsheets/d/1Hn6UPLl4eQq7bw0D2FtoCi8wpuTRXDh_1_rUrA0igTE/edit?usp=sharing",
+            link4_text: "Flujo de Efectivo",
+            link4_url: "https://docs.google.com/spreadsheets/d/1dhRxkL05srgeNI3zpSRZO4uX46_4fyFyMgAFbZqkFF0/edit?gid=2040246134#gid=2040246134",
+            background_color: "#4c1d95",
+            surface_color: "#ffffff",
+            text_color: "#ffffff",
+            primary_action_color: "#ec4899",
+            secondary_action_color: "#8b5cf6",
+            font_family: "Inter",
+            font_size: 16
+        };
+
+        // Función para actualizar la UI basada en la configuración
+        async function onConfigChange(config) {
+            const currentConfig = { ...defaultConfig, ...config };
+            
+            // Actualizar título
+            document.getElementById('menu-title').textContent = currentConfig.menu_title;
+            
+            // Actualizar enlaces
+            const link1 = document.getElementById('link1');
+            const link1Text = document.getElementById('link1-text');
+            link1.href = currentConfig.link1_url;
+            link1Text.textContent = currentConfig.link1_text;
+            
+            const link2 = document.getElementById('link2');
+            const link2Text = document.getElementById('link2-text');
+            link2.href = currentConfig.link2_url;
+            link2Text.textContent = currentConfig.link2_text;
+            
+            const link3 = document.getElementById('link3');
+            const link3Text = document.getElementById('link3-text');
+            link3.href = currentConfig.link3_url;
+            link3Text.textContent = currentConfig.link3_text;
+            
+            const link4 = document.getElementById('link4');
+            const link4Text = document.getElementById('link4-text');
+            link4.href = currentConfig.link4_url;
+            link4Text.textContent = currentConfig.link4_text;
+            
+
+            
+            const link6Text = document.getElementById('link6-text');
+            link6Text.textContent = "Capitalización";
+            
+            // Aplicar colores
+            document.body.style.background = `linear-gradient(135deg, ${currentConfig.background_color}, ${currentConfig.primary_action_color}, ${currentConfig.secondary_action_color})`;
+            
+            // Aplicar fuente
+            const customFont = currentConfig.font_family;
+            const baseFontStack = 'system-ui, -apple-system, sans-serif';
+            const fontFamily = `${customFont}, ${baseFontStack}`;
+            
+            document.getElementById('menu-title').style.fontFamily = fontFamily;
+            document.getElementById('menu-title').style.fontSize = `${currentConfig.font_size * 2}px`;
+            
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.style.fontFamily = fontFamily;
+                item.style.fontSize = `${currentConfig.font_size * 1.125}px`;
+                item.style.color = currentConfig.text_color;
+            });
+        }
+
+        // Mapear a capacidades de edición
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.background_color || defaultConfig.background_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ background_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.surface_color || defaultConfig.surface_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ surface_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.text_color || defaultConfig.text_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ text_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ primary_action_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ secondary_action_color: value });
+                            }
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => config.font_family || defaultConfig.font_family,
+                    set: (value) => {
+                        if (window.elementSdk) {
+                            window.elementSdk.setConfig({ font_family: value });
+                        }
+                    }
+                },
+                fontSizeable: {
+                    get: () => config.font_size || defaultConfig.font_size,
+                    set: (value) => {
+                        if (window.elementSdk) {
+                            window.elementSdk.setConfig({ font_size: value });
+                        }
+                    }
+                }
+            };
+        }
+
+        // Mapear valores del panel de edición
+        function mapToEditPanelValues(config) {
+            const currentConfig = { ...defaultConfig, ...config };
+            return new Map([
+                ["menu_title", currentConfig.menu_title],
+                ["link1_text", currentConfig.link1_text],
+                ["link1_url", currentConfig.link1_url],
+                ["link2_text", currentConfig.link2_text],
+                ["link2_url", currentConfig.link2_url],
+                ["link3_text", currentConfig.link3_text],
+                ["link3_url", currentConfig.link3_url],
+                ["link4_text", currentConfig.link4_text],
+                ["link4_url", currentConfig.link4_url]
+            ]);
+        }
+
+        // Inicializar el SDK cuando esté disponible
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+
+        // Aplicar configuración inicial
+        onConfigChange(defaultConfig);
+
+        // Funcionalidad de navegación entre páginas
+        function showPage(pageId) {
+            // Ocultar todas las páginas
+            document.getElementById('main-page').classList.add('hidden');
+            document.getElementById('analisis-page').classList.add('hidden');
+            document.getElementById('capitalizacion-page').classList.add('hidden');
+            
+            // Mostrar la página solicitada
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        // Navegación a Análisis Mensual
+        document.getElementById('analisis-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('analisis-page');
+        });
+
+        // Navegación a Capitalización
+        document.getElementById('capitalizacion-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('capitalizacion-page');
+        });
+
+        // Botones de regreso
+        document.getElementById('back-from-analisis').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('main-page');
+        });
+
+        document.getElementById('back-from-capitalizacion').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('main-page');
+        });
+
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999e1bc8c2adf1ca',t:'MTc2MjM2NDEzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
