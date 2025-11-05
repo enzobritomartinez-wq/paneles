@@ -1,0 +1,1135 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PANEL DE CONTROL - ASESORES</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/zv99dUA.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .link-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #32cd32 0%, #228b22 50%, #006400 100%);
+        }
+        .gradient-bg.red-theme {
+            background: linear-gradient(135deg, #dc143c 0%, #b22222 50%, #8b0000 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .back-button {
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="gradient-bg min-h-screen py-8 px-4 pb-32"><!-- Barra lateral de navegación -->
+  <div id="sidebar" class="fixed left-0 top-0 h-full w-64 glass-effect z-40 transform -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
+   <div class="flex flex-col py-4 space-y-2 px-3"><!-- Botón para abrir/cerrar sidebar --> <button onclick="toggleSidebar()" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-xl mr-3">☰</span> <span class="font-medium">Menú</span> </button> <!-- Separador -->
+    <div class="w-full h-px bg-white/30 my-2"></div><!-- Navegación principal -->
+    <div class="space-y-1">
+     <div class="text-white/60 text-xs font-semibold uppercase tracking-wider px-4 py-2">
+      Navegación
+     </div><button onclick="showPage('mainMenu')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏠</span> <span class="font-medium">Inicio</span> </button> <button onclick="showPage('circulares')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📋</span> <span class="font-medium">Circulares</span> </button> <button onclick="showPage('simuladores')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🧮</span> <span class="font-medium">Simuladores</span> </button> <button onclick="showPage('listadosIndividuales')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📝</span> <span class="font-medium">Listados Individuales</span> </button> <button onclick="showPage('listadosSP')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏷️</span> <span class="font-medium">Listados SP</span> </button>
+    </div><!-- Separador -->
+    <div class="w-full h-px bg-white/30 my-2"></div><!-- Enlaces directos principales -->
+    <div class="space-y-1">
+     <div class="text-white/60 text-xs font-semibold uppercase tracking-wider px-4 py-2">
+      Enlaces Directos
+     </div><button onclick="openLink('https://docs.google.com/spreadsheets/d/1zDlLpq1B0ikijbGbd0-jOBA-ES_2pFSq0W-p0mvw5pA/edit?usp=sharing')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🚗</span> <span class="font-medium">Lista de Usados</span> </button> <button onclick="openLink('https://docs.google.com/spreadsheets/d/1IqMd5v7g_G92gwYX6nyymEbjwNc8OMUxk8DmQKs-4i8/edit?usp=sharing')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">💰</span> <span class="font-medium">Precios 0KM</span> </button> <button onclick="showPage('prestamos')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏦</span> <span class="font-medium">Prestamos</span> </button> <button onclick="showPage('pedidosGerencia')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📋</span> <span class="font-medium">Pedidos de Gerencia</span> </button> <button onclick="showPage('comunAcuerdo')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🤝</span> <span class="font-medium">Común Acuerdo</span> </button>
+    </div><!-- Separador -->
+    <div class="w-full h-px bg-white/30 my-2"></div><!-- Catálogo y fotos -->
+    <div class="space-y-1">
+     <div class="text-white/60 text-xs font-semibold uppercase tracking-wider px-4 py-2">
+      Catálogo y Fotos
+     </div><button onclick="openLink('https://bymautomotores.psee.io/bymcatalogo')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📸</span> <span class="font-medium">Catálogo BYM</span> </button> <button onclick="openLink('https://usados.cenoa.com.ar/tienda-de-usados/')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏢</span> <span class="font-medium">Fotos CE</span> </button> <button onclick="openLink('https://usados.dycar.com.ar/home')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏪</span> <span class="font-medium">Fotos DYC</span> </button> <button onclick="openLink('https://www.autojujuy.com.ar/usados')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏬</span> <span class="font-medium">Fotos AJ</span> </button>
+    </div><!-- Separador -->
+    <div class="w-full h-px bg-white/30 my-2"></div><!-- Herramientas -->
+    <div class="space-y-1">
+     <div class="text-white/60 text-xs font-semibold uppercase tracking-wider px-4 py-2">
+      Herramientas
+     </div><button onclick="openLink('https://carapp.iudu.com.ar/')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📱</span> <span class="font-medium">IUDÚ</span> </button> <button onclick="openLink('https://www2.jus.gov.ar/dnrpa-site/#!/estimador')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🧾</span> <span class="font-medium">Estimador de Costos</span> </button> <button onclick="showPage('unidadServicios')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🔧</span> <span class="font-medium">Unidad de Servicios Internos</span> </button> <button onclick="openLink('https://docs.google.com/document/d/15nJScqCvD_I2Szj7mgB6uiXs1Tpmq1rUK3qRsA8wKpc/edit?usp=sharing')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📖</span> <span class="font-medium">Manual de Convivencia</span> </button> <button onclick="openLink('https://docs.google.com/spreadsheets/d/1JqBB-srHTGGzdRpMXtrPFwW2dEAoZzMuJDx4kgOOwmI/edit?usp=sharing')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📋</span> <span class="font-medium">Pedidos Asesores</span> </button> <button onclick="openLink('https://docs.google.com/spreadsheets/d/e/2PACX-1vTP5OZ6TRQqIK33WGnpaIUhJs81MZI8iQhMC2F-fiU497ZpC5OGzmf5JEXYC8Zi-OholrR0c9fO_jEn/pubhtml?gid=999838015&amp;single=true')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🕒</span> <span class="font-medium">Horarios Asesores</span> </button> <button onclick="showPage('pagoComisiones')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">💰</span> <span class="font-medium">Pago de Comisiones</span> </button> <button onclick="openLink('https://docs.google.com/spreadsheets/d/e/2PACX-1vRO93Xr8m_3Ucy5NKWr-sC0L2Z5eg4W9jhyvTV_d5vYqg2czjwJQnC_VY-rVEvo-aGpM_CM-MCiIEmv/pubhtml?gid=2117109784&amp;single=true')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📊</span> <span class="font-medium">Desempeño de Asesores</span> </button> <button onclick="openLink('https://docs.google.com/spreadsheets/d/1r6aG1CvyGgQJl_Qp1CtlKNS6h0veIFZ3LMmFLu3Uvl0/edit?gid=832947285#gid=832947285')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">👥</span> <span class="font-medium">Listado para Clientes</span> </button>
+    </div>
+   </div>
+  </div><!-- Botón flotante para abrir sidebar (visible cuando está cerrada) -->
+  <div id="sidebarToggle" class="fixed left-4 top-4 z-50"><button onclick="toggleSidebar()" class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-white text-xl hover:bg-white/20 transition-all duration-300" title="Abrir menú"> ☰ </button>
+  </div><!-- Botón de cambio de tema -->
+  <div class="fixed top-4 right-4 z-50"><button onclick="toggleTheme()" class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-white text-xl hover:bg-white/20 transition-all duration-300" title="Cambiar tema"> 🎨 </button>
+  </div><!-- Overlay para cerrar sidebar en móvil -->
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 opacity-0 pointer-events-none transition-opacity duration-300"></div><!-- PÁGINA PRINCIPAL - MENÚ -->
+  <div id="mainMenu" class="page active">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img id="customLogo" src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; document.getElementById('defaultLogo').style.display='flex';">
+      <div id="defaultLogo" class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+    </div><!-- Enlaces Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32"><!-- 1. Desempeño de Asesores -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/e/2PACX-1vRO93Xr8m_3Ucy5NKWr-sC0L2Z5eg4W9jhyvTV_d5vYqg2czjwJQnC_VY-rVEvo-aGpM_CM-MCiIEmv/pubhtml?gid=2117109784&amp;single=true')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-violet-600 to-purple-700 flex items-center justify-center text-white text-xl mr-4">
+        📊
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Desempeño de Asesores</h3>
+       </div>
+      </div>
+     </div><!-- 2. Préstamos -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('prestamos')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-500 flex items-center justify-center text-white text-xl mr-4">
+        🏦
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Préstamos</h3>
+       </div>
+      </div>
+     </div><!-- 3. Pedidos de Gerencia -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('pedidosGerencia')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl mr-4">
+        📋
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Pedidos de Gerencia</h3>
+       </div>
+      </div>
+     </div><!-- 4. Pago de Comisiones -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('pagoComisiones')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-600 to-emerald-700 flex items-center justify-center text-white text-xl mr-4">
+        💰
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Pago de Comisiones</h3>
+       </div>
+      </div>
+     </div><!-- 5. Unidad de Servicios Internos -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('unidadServicios')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-slate-500 to-slate-600 flex items-center justify-center text-white text-xl mr-4 overflow-hidden"><img src="https://i.imgur.com/zv99dUA.png" alt="Unidad de Servicios Internos" class="w-8 h-8" onerror="this.style.display='none'; this.parentElement.innerHTML='🔧';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Unidad de Servicios Internos</h3>
+       </div>
+      </div>
+     </div><!-- 6. Común Acuerdo -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('comunAcuerdo')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center text-white text-xl mr-4">
+        🤝
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Común Acuerdo</h3>
+       </div>
+      </div>
+     </div><!-- 7. Listados Individuales -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('listadosIndividuales')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center text-white text-xl mr-4">
+        📝
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Listados Individuales</h3>
+       </div>
+      </div>
+     </div><!-- 8. Listados SP -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('listadosSP')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 flex items-center justify-center text-white text-xl mr-4">
+        🏷️
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Listados SP</h3>
+       </div>
+      </div>
+     </div><!-- 9. Lista de Usados -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1zDlLpq1B0ikijbGbd0-jOBA-ES_2pFSq0W-p0mvw5pA/edit?usp=sharing')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-4">
+        🚗
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Lista de Usados</h3>
+       </div>
+      </div>
+     </div><!-- 10. Catálogo -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://bymautomotores.psee.io/bymcatalogo')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center text-white text-xl mr-4">
+        📸
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Catálogo</h3>
+       </div>
+      </div>
+     </div><!-- 11. Lista 0KM -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1IqMd5v7g_G92gwYX6nyymEbjwNc8OMUxk8DmQKs-4i8/edit?usp=sharing')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 flex items-center justify-center text-white text-xl mr-4">
+        💰
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Lista 0KM</h3>
+       </div>
+      </div>
+     </div><!-- 12. Circulares -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('circulares')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-4">
+        📋
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Circulares</h3>
+       </div>
+      </div>
+     </div><!-- 13. Simuladores -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('simuladores')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-4">
+        🧮
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Simuladores</h3>
+       </div>
+      </div>
+     </div><!-- 14. IUDÚ -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://carapp.iudu.com.ar/')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden"><img src="https://i.imgur.com/FZgCsDN.png" alt="IUDÚ CAR" class="w-8 h-8" onerror="this.style.display='none'; this.parentElement.innerHTML='📱';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">IUDÚ</h3>
+       </div>
+      </div>
+     </div><!-- 15. Horarios Asesores -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/e/2PACX-1vTP5OZ6TRQqIK33WGnpaIUhJs81MZI8iQhMC2F-fiU497ZpC5OGzmf5JEXYC8Zi-OholrR0c9fO_jEn/pubhtml?gid=999838015&amp;single=true')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xl mr-4">
+        🕒
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Horarios Asesores</h3>
+       </div>
+      </div>
+     </div><!-- 16. Fotos CE -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://usados.cenoa.com.ar/tienda-de-usados/')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-400 to-blue-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden"><img src="https://i.imgur.com/NaeFNZV.png" alt="Fotos CE" class="w-8 h-8" onerror="this.style.display='none'; this.parentElement.innerHTML='🏢';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Fotos CE</h3>
+       </div>
+      </div>
+     </div><!-- 17. Fotos DYC -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://usados.dycar.com.ar/home')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-400 to-purple-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden"><img src="https://i.imgur.com/ayOhaEX.png" alt="Fotos DYC" class="w-8 h-8" onerror="this.style.display='none'; this.parentElement.innerHTML='🏪';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Fotos DYC</h3>
+       </div>
+      </div>
+     </div><!-- 18. Fotos AJ -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://www.autojujuy.com.ar/usados')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden"><img src="https://i.imgur.com/YsqKROl.png" alt="Fotos AJ" class="w-8 h-8" onerror="this.style.display='none'; this.parentElement.innerHTML='🏬';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Fotos AJ</h3>
+       </div>
+      </div>
+     </div><!-- 19. Pedidos Asesores -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1JqBB-srHTGGzdRpMXtrPFwW2dEAoZzMuJDx4kgOOwmI/edit?usp=sharing')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xl mr-4">
+        📋
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Pedidos Asesores</h3>
+       </div>
+      </div>
+     </div><!-- 20. Estimador de Costos -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://www2.jus.gov.ar/dnrpa-site/#!/estimador')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden"><img src="https://www2.jus.gov.ar/dnrpa-site/favicon.ico" alt="Estimador de costos" class="w-8 h-8" onerror="this.style.display='none'; this.parentElement.innerHTML='🧾';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Estimador de Costos</h3>
+       </div>
+      </div>
+     </div><!-- 21. Listado para Clientes -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1r6aG1CvyGgQJl_Qp1CtlKNS6h0veIFZ3LMmFLu3Uvl0/edit?gid=832947285#gid=832947285')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 flex items-center justify-center text-white text-xl mr-4">
+        👥
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Listado para Clientes</h3>
+       </div>
+      </div>
+     </div><!-- 22. Manual de Convivencia -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/document/d/15nJScqCvD_I2Szj7mgB6uiXs1Tpmq1rUK3qRsA8wKpc/edit?usp=sharing')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-violet-500 to-purple-600 flex items-center justify-center text-white text-xl mr-4">
+        📖
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Manual de Convivencia</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- PÁGINA DE CIRCULARES -->
+  <div id="circulares" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('mainMenu')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver al Menú</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Circulares por Marca</h1>
+     <p class="text-white/80 text-lg">Selecciona la marca para ver sus circulares</p>
+    </div><!-- Marcas Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32"><!-- Volkswagen -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openBrand('volkswagen')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 flex items-center justify-center text-white text-xl mr-4"><img src="https://cdn.iconscout.com/icon/free/png-256/free-volkswagen-icon-svg-download-png-202922.png" alt="Volkswagen" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Volkswagen</h3>
+       </div>
+      </div>
+     </div><!-- Chevrolet -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openBrand('chevrolet')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=57661&amp;format=png&amp;color=000000" alt="Chevrolet" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Chevrolet</h3>
+       </div>
+      </div>
+     </div><!-- Ford -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openBrand('ford')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-800 to-blue-900 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=57660&amp;format=png&amp;color=000000" alt="Ford" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Ford</h3>
+       </div>
+      </div>
+     </div><!-- Peugeot -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openBrand('peugeot')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-gray-600 to-gray-700 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=vjF4u03I9TuC&amp;format=png&amp;color=000000" alt="Peugeot" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Peugeot</h3>
+       </div>
+      </div>
+     </div><!-- Fiat -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openBrand('fiat')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=60279&amp;format=png&amp;color=000000" alt="Fiat" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Fiat</h3>
+       </div>
+      </div>
+     </div><!-- Renault -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openBrand('renault')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=7eaZsxHRr6Ir&amp;format=png&amp;color=000000" alt="Renault" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Renault</h3>
+       </div>
+      </div>
+     </div><!-- Citroen -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openBrand('citroen')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=1b5B0ua4dGFW&amp;format=png&amp;color=000000" alt="Citroën" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Citroën</h3>
+       </div>
+      </div>
+     </div><!-- Toyota -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openBrand('toyota')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-red-700 to-red-800 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=mEccIkjwF5gZ&amp;format=png&amp;color=000000" alt="Toyota" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Toyota</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- PÁGINA DE SIMULADORES -->
+  <div id="simuladores" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('mainMenu')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver al Menú</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Simuladores por Marca</h1>
+     <p class="text-white/80 text-lg">Selecciona la marca para acceder a sus simuladores</p>
+    </div><!-- Marcas Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32"><!-- Volkswagen -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openSimulator('volkswagen')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 flex items-center justify-center text-white text-xl mr-4"><img src="https://cdn.iconscout.com/icon/free/png-256/free-volkswagen-icon-svg-download-png-202922.png" alt="Volkswagen" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Volkswagen</h3>
+       </div>
+      </div>
+     </div><!-- Chevrolet -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openSimulator('chevrolet')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=57661&amp;format=png&amp;color=000000" alt="Chevrolet" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Chevrolet</h3>
+       </div>
+      </div>
+     </div><!-- Ford -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openSimulator('ford')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-800 to-blue-900 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=57660&amp;format=png&amp;color=000000" alt="Ford" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Ford</h3>
+       </div>
+      </div>
+     </div><!-- Peugeot -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openSimulator('peugeot')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-gray-600 to-gray-700 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=vjF4u03I9TuC&amp;format=png&amp;color=000000" alt="Peugeot" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Peugeot</h3>
+       </div>
+      </div>
+     </div><!-- Fiat -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openSimulator('fiat')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=60279&amp;format=png&amp;color=000000" alt="Fiat" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Fiat</h3>
+       </div>
+      </div>
+     </div><!-- Renault -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openSimulator('renault')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=7eaZsxHRr6Ir&amp;format=png&amp;color=000000" alt="Renault" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Renault</h3>
+       </div>
+      </div>
+     </div><!-- Citroen -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openSimulator('citroen')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=1b5B0ua4dGFW&amp;format=png&amp;color=000000" alt="Citroën" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Citroën</h3>
+       </div>
+      </div>
+     </div><!-- Toyota -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openSimulator('toyota')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-red-700 to-red-800 flex items-center justify-center text-white text-xl mr-4"><img src="https://img.icons8.com/?size=100&amp;id=mEccIkjwF5gZ&amp;format=png&amp;color=000000" alt="Toyota" class="w-8 h-8" onerror="this.style.display='none';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Toyota</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- PÁGINA DE LISTADOS INDIVIDUALES -->
+  <div id="listadosIndividuales" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('mainMenu')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver al Menú</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Listados Individuales</h1>
+     <p class="text-white/80 text-lg">Selecciona el vendedor para ver sus listados</p>
+    </div><!-- Vendedores Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32"><!-- Juan Weimer -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openVendedor('juan-weimer')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/YSOgHS3.png" alt="Juan Weimer" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Juan Weimer</h3>
+       </div>
+      </div>
+     </div><!-- Javier Valenzuela -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openVendedor('javier-valenzuela')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/4XlJAg9.png" alt="Javier Valenzuela" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Javier Valenzuela</h3>
+       </div>
+      </div>
+     </div><!-- Cristian Cabral -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openVendedor('cristian-cabral')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/PIoR11P.png" alt="Cristian Cabral" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Cristian Cabral</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- PÁGINA DE LISTADOS SP -->
+  <div id="listadosSP" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('mainMenu')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver al Menú</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Listados SP</h1>
+     <p class="text-white/80 text-lg">Selecciona el vendedor para ver sus listados SP</p>
+    </div><!-- Vendedores Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32"><!-- Juan Weimer -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openVendedorSP('juan-weimer')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/YSOgHS3.png" alt="Juan Weimer" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Juan Weimer</h3>
+       </div>
+      </div>
+     </div><!-- Javier Valenzuela -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openVendedorSP('javier-valenzuela')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/4XlJAg9.png" alt="Javier Valenzuela" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Javier Valenzuela</h3>
+       </div>
+      </div>
+     </div><!-- Cristian Cabral -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openVendedorSP('cristian-cabral')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/PIoR11P.png" alt="Cristian Cabral" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Cristian Cabral</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- PÁGINA DE PRESTAMOS -->
+  <div id="prestamos" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('mainMenu')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver al Menú</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Préstamos</h1>
+     <p class="text-white/80 text-lg">Selecciona el asesor para ver información de préstamos</p>
+    </div><!-- Asesores Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32"><!-- Juan Weimer -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openPrestamo('juan-weimer')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/YSOgHS3.png" alt="Juan Weimer" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Juan Weimer</h3>
+       </div>
+      </div>
+     </div><!-- Javier Valenzuela -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openPrestamo('javier-valenzuela')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/4XlJAg9.png" alt="Javier Valenzuela" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Javier Valenzuela</h3>
+       </div>
+      </div>
+     </div><!-- Cristian Cabral -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openPrestamo('cristian-cabral')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/PIoR11P.png" alt="Cristian Cabral" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Cristian Cabral</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- PÁGINA DE PEDIDOS DE GERENCIA -->
+  <div id="pedidosGerencia" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('mainMenu')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver al Menú</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Pedidos de Gerencia</h1>
+     <p class="text-white/80 text-lg">Selecciona el asesor para ver sus pedidos de gerencia</p>
+    </div><!-- Asesores Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32"><!-- Juan Weimer -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openPedidoGerencia('juan-weimer')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/YSOgHS3.png" alt="Juan Weimer" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Juan Weimer</h3>
+       </div>
+      </div>
+     </div><!-- Javier Valenzuela -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openPedidoGerencia('javier-valenzuela')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/4XlJAg9.png" alt="Javier Valenzuela" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Javier Valenzuela</h3>
+       </div>
+      </div>
+     </div><!-- Cristian Cabral -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openPedidoGerencia('cristian-cabral')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/PIoR11P.png" alt="Cristian Cabral" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Cristian Cabral</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- PÁGINA DE COMÚN ACUERDO -->
+  <div id="comunAcuerdo" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('mainMenu')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver al Menú</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Común Acuerdo</h1>
+     <p class="text-white/80 text-lg">Selecciona el asesor para ver información de común acuerdo</p>
+    </div><!-- Asesores Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32"><!-- Juan Weimer -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openComunAcuerdo('juan-weimer')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/YSOgHS3.png" alt="Juan Weimer" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Juan Weimer</h3>
+       </div>
+      </div>
+     </div><!-- Javier Valenzuela -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openComunAcuerdo('javier-valenzuela')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/4XlJAg9.png" alt="Javier Valenzuela" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Javier Valenzuela</h3>
+       </div>
+      </div>
+     </div><!-- Cristian Cabral -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openComunAcuerdo('cristian-cabral')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/PIoR11P.png" alt="Cristian Cabral" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Cristian Cabral</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- PÁGINA DE PAGO DE COMISIONES -->
+  <div id="pagoComisiones" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('mainMenu')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver al Menú</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Pago de Comisiones</h1>
+     <p class="text-white/80 text-lg">Selecciona el asesor para ver sus comisiones</p>
+    </div><!-- Asesores Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32"><!-- Juan Weimer -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openComision('juan-weimer')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/YSOgHS3.png" alt="Juan Weimer" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Juan Weimer</h3>
+       </div>
+      </div>
+     </div><!-- Javier Valenzuela -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openComision('javier-valenzuela')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/4XlJAg9.png" alt="Javier Valenzuela" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Javier Valenzuela</h3>
+       </div>
+      </div>
+     </div><!-- Cristian Cabral -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openComision('cristian-cabral')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/PIoR11P.png" alt="Cristian Cabral" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Cristian Cabral</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- PÁGINA DE UNIDAD DE SERVICIOS INTERNOS -->
+  <div id="unidadServicios" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('mainMenu')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver al Menú</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Unidad de Servicios Internos</h1>
+     <p class="text-white/80 text-lg">Selecciona el asesor para ver servicios internos</p>
+    </div><!-- Servicios Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32"><!-- Consignaciones -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1hToscp05EBHkAU2k4raGkULKVGMPD10ZMx8Rqlj-a8c/edit')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-4">
+        📋
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Consignaciones</h3>
+       </div>
+      </div>
+     </div><!-- Usados Libres -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1Xe5ojoAC_RmZjpjlgpDYQh6C0VMx6c9nmZmX1T9GmyI/edit?gid=1614545059#gid=1614545059')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-4">
+        🚗
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Usados Libres</h3>
+       </div>
+      </div>
+     </div><!-- Usados Vendidos -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1_Kl7pYIlJY2C7UNzZ7oP-eFg0tAXvZgqxDpU0cMiL4o/edit?gid=1193906348#gid=1193906348')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-4">
+        ✅
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Usados Vendidos</h3>
+       </div>
+      </div>
+     </div><!-- Faltantes Administración -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1Wr4rcRv9HeTMGmjVMOMwvAeFwUN6_el6HWBhapSCmdc/edit?gid=1920400388#gid=1920400388')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center text-white text-xl mr-4">
+        ⚠️
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Faltantes Administración</h3>
+       </div>
+      </div>
+     </div><!-- Garantías -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1Pepu-A0ED67ZPUugLqxmp-aIOis0i9Hk6f2bngTfmBc/edit')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 flex items-center justify-center text-white text-xl mr-4">
+        🛡️
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Garantías</h3>
+       </div>
+      </div>
+     </div><!-- Usados Finalizados -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openLink('https://docs.google.com/spreadsheets/d/1Gm5QJCId3x61W3wqCbxL5KlDovEVgArq5kVnx9WgB6I/edit?gid=1193906348#gid=1193906348')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 flex items-center justify-center text-white text-xl mr-4">
+        🏁
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Usados Finalizados</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+        // Función para mostrar páginas
+        function showPage(pageId) {
+            // Ocultar todas las páginas
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostrar la página solicitada
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                
+                // Añadir animación de entrada
+                const content = targetPage.querySelector('.fade-in');
+                if (content) {
+                    content.style.animation = 'none';
+                    setTimeout(() => {
+                        content.style.animation = 'fadeIn 0.5s ease-in';
+                    }, 10);
+                }
+                
+                // Animar las tarjetas
+                setTimeout(() => {
+                    const cards = targetPage.querySelectorAll('.link-card');
+                    cards.forEach((card, index) => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.transition = 'all 0.5s ease';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
+                }, 100);
+            }
+        }
+
+        // Función para abrir enlaces externos
+        function openLink(url) {
+            if (url === '#') {
+                alert('Esta funcionalidad estará disponible próximamente');
+                return;
+            }
+            window.open(url, '_blank');
+        }
+
+        // Función para abrir marcas
+        function openBrand(brand) {
+            // Añadir efecto de click
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // URLs específicas para cada marca
+            const brandUrls = {
+                'volkswagen': 'https://drive.google.com/file/d/1mGGodPQPf6OWwK6-PYZC7xGblSN2IVUz/view?usp=drive_link',
+                'chevrolet': 'https://drive.google.com/file/d/1eE91RK1sHHSAFWpcYsngdEccuzf7vjnq/view?usp=drive_link',
+                'ford': 'https://drive.google.com/file/d/1lnLzo0Qudtk8iHBbsoT5Yi3qjZLFzSo8/view?usp=drive_link',
+                'peugeot': 'https://drive.google.com/file/d/1mx--zQixR-PRPnwhBTN3uDBdaF9AU1ri/view?usp=drive_link',
+                'fiat': 'https://drive.google.com/file/d/1_ZQ1ksWfq5kFVNOcS5NCyDR0WS9_rSfI/view?usp=drive_link',
+                'renault': 'https://drive.google.com/file/d/1ah1v8kWpvCpfmDoLzMMzV-LzYI7UkWve/view?usp=drive_link',
+                'citroen': 'https://drive.google.com/file/d/1ShLbAePL7p9Mep8B9MY3SiJREVWxngdn/view?usp=drive_link',
+                'toyota': 'https://drive.google.com/file/d/1Aa4rkI73C8YuiwBMo9QWK5OPrVEgC2iZ/view?usp=drive_link'
+            };
+            
+            const url = brandUrls[brand];
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Función para abrir simuladores
+        function openSimulator(brand) {
+            // Añadir efecto de click
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // Los simuladores no tienen enlaces por ahora
+            const nombres = {
+                'volkswagen': 'Volkswagen',
+                'chevrolet': 'Chevrolet',
+                'ford': 'Ford',
+                'peugeot': 'Peugeot',
+                'fiat': 'Fiat',
+                'renault': 'Renault',
+                'citroen': 'Citroën',
+                'toyota': 'Toyota'
+            };
+            alert('Simulador de ' + nombres[brand] + ' - Próximamente disponible');
+        }
+
+        // Función para abrir vendedores
+        function openVendedor(vendedor) {
+            // Añadir efecto de click
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // URLs específicas para cada vendedor
+            const vendedorUrls = {
+                'juan-weimer': 'https://docs.google.com/spreadsheets/d/1ha5Puq0mhvWnaft9jpfoPFj0p6f3eRJ7-IriHw-FGvo/edit?usp=sharing',
+                'javier-valenzuela': 'https://docs.google.com/spreadsheets/d/1eDzv1lFFTWvFSX5p68zyxgx_ZkNeJ6I1EgP8ItFK4Fc/edit?usp=sharing',
+                'cristian-cabral': 'https://docs.google.com/spreadsheets/d/1CnVNtW-Vi7wVBSnSaslwbVaDCDmgHI4M06lXCRoS4sU/edit?usp=sharing'
+            };
+            
+            const url = vendedorUrls[vendedor];
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Función para abrir vendedores SP
+        function openVendedorSP(vendedor) {
+            // Añadir efecto de click
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // URLs específicas para cada vendedor SP
+            const vendedorSPUrls = {
+                'juan-weimer': 'https://docs.google.com/spreadsheets/d/17I7mM3JTbAFk9mEmrq0LN1R1WUfqSxaD4LHR0rdfGv8/edit?usp=sharing',
+                'javier-valenzuela': 'https://docs.google.com/spreadsheets/d/1pOLu1Ui79oREyuQckcat6A5lGX4oVAoTloHFImqj9vQ/edit?usp=sharing',
+                'cristian-cabral': 'https://docs.google.com/spreadsheets/d/1n7DSl7jY4Y2rljyVuEw8VCQQ9O2ORakAELNCIg4LLYo/edit?usp=sharing'
+            };
+            
+            const url = vendedorSPUrls[vendedor];
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Función para abrir préstamos
+        function openPrestamo(asesor) {
+            // Añadir efecto de click
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // URLs específicas para cada asesor
+            const prestamoUrls = {
+                'juan-weimer': 'https://docs.google.com/spreadsheets/d/12bt02HdW5PyRn7rWCC6DBRVo5ArS9t8RfwpDG5Numq4/edit?gid=229187394#gid=229187394',
+                'javier-valenzuela': 'https://docs.google.com/spreadsheets/d/1RH2ONkOiFTwAVmzroT7SAVlw0YIkEKbGWeyR-GcmC-w/edit?gid=1778022735#gid=1778022735',
+                'cristian-cabral': 'https://docs.google.com/spreadsheets/d/1r4y5HpckpHopdV7pEYLURGYUaylZbaaIlRZo94-lk-E/edit?gid=1524164654#gid=1524164654'
+            };
+            
+            const url = prestamoUrls[asesor];
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Función para abrir común acuerdo
+        function openComunAcuerdo(asesor) {
+            // Añadir efecto de click
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // URLs específicas para cada asesor
+            const comunAcuerdoUrls = {
+                'juan-weimer': 'https://docs.google.com/spreadsheets/d/1XNPwjPQLlGt05ACHP-TYf1th-LnTH28_sEeKJrnVs2g/edit?gid=2105211617#gid=2105211617',
+                'javier-valenzuela': 'https://docs.google.com/spreadsheets/d/1glzDfGIWGW8cqw5Lo2lHnGWiU-sCt0k4y5ZteT9jUQI/edit?gid=2038789508#gid=2038789508',
+                'cristian-cabral': 'https://docs.google.com/spreadsheets/d/1ElfpbA-rGEMXMqyL-wN8ZyHgO4ZcexBEgrn4K22EYsM/edit?gid=1767464422#gid=1767464422'
+            };
+            
+            const url = comunAcuerdoUrls[asesor];
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Función para abrir comisiones
+        function openComision(asesor) {
+            // Añadir efecto de click
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // URLs específicas para cada asesor
+            const comisionUrls = {
+                'juan-weimer': 'https://docs.google.com/spreadsheets/d/1GBTUWiTnwu98DQ9jPhdu9JGigDBVpzIE6LLMIGJl490/edit?usp=sharing',
+                'javier-valenzuela': 'https://docs.google.com/spreadsheets/d/1bGuoqWQ2RRqKLEZMkzAx_JMedrwmceitHUaud61RJnY/edit?usp=sharing',
+                'cristian-cabral': 'https://docs.google.com/spreadsheets/d/1_9bl5Mf1HJyqA5kC2nCrHImwrnuKQ8ASu7sUBIyq2zw/edit?usp=sharing'
+            };
+            
+            const url = comisionUrls[asesor];
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        // Función para abrir pedidos de gerencia
+        function openPedidoGerencia(asesor) {
+            // Añadir efecto de click
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // URLs específicas para cada asesor
+            const pedidoGerenciaUrls = {
+                'juan-weimer': 'https://docs.google.com/spreadsheets/d/1kS1sERhJKWdn8jbBmiN-KWSabThSkFNFLqG9zlZiwUg/edit?usp=sharing',
+                'javier-valenzuela': 'https://docs.google.com/spreadsheets/d/1LIbO5XRiV3db-4VbXMa0cp1uljlrkvqPXxU666RlfRY/edit?usp=sharing',
+                'cristian-cabral': 'https://docs.google.com/spreadsheets/d/1D7aiiculdRbGMmN48NPtjEBXgkUI-8gN4XGun0cWIwg/edit?usp=sharing'
+            };
+            
+            const url = pedidoGerenciaUrls[asesor];
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+
+
+
+
+        // Función para cambiar tema
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('red-theme');
+            
+            // Guardar preferencia en localStorage
+            const isRedTheme = body.classList.contains('red-theme');
+            localStorage.setItem('redTheme', isRedTheme);
+            
+            // Efecto visual en el botón
+            const themeButton = event.currentTarget;
+            themeButton.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                themeButton.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        // Función para abrir/cerrar sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            const isOpen = sidebar.classList.contains('translate-x-0');
+            
+            if (isOpen) {
+                // Cerrar sidebar
+                sidebar.classList.remove('translate-x-0');
+                sidebar.classList.add('-translate-x-full');
+                sidebarToggle.style.display = 'block';
+                overlay.classList.remove('opacity-100', 'pointer-events-auto');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                // Abrir sidebar
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                sidebarToggle.style.display = 'none';
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.classList.add('opacity-100', 'pointer-events-auto');
+            }
+        }
+
+        // Cerrar sidebar al hacer click en el overlay
+        document.getElementById('sidebarOverlay').addEventListener('click', function() {
+            toggleSidebar();
+        });
+
+
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar tema guardado
+            const savedTheme = localStorage.getItem('redTheme');
+            if (savedTheme === 'true') {
+                document.body.classList.add('red-theme');
+            }
+            
+            // Animar las tarjetas de la página inicial
+            setTimeout(() => {
+                const cards = document.querySelectorAll('#mainMenu .link-card');
+                cards.forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.transition = 'all 0.5s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 100);
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999e25c9d1ccf1ca',t:'MTc2MjM2NDU0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
