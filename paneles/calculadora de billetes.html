@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Billetes</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/zv99dUA.png">
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .bill-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #28B051 0%, #32C55F 100%);
+        }
+        
+        .bill-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .total-card {
+            background: linear-gradient(135deg, #28B051 0%, #32C55F 100%);
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 4px 20px rgba(40, 176, 81, 0.3); }
+            100% { box-shadow: 0 8px 30px rgba(40, 176, 81, 0.5); }
+        }
+        
+        .red-theme .bill-card {
+            background: linear-gradient(135deg, #FC6044 0%, #FF7A5C 100%);
+        }
+        
+        .red-theme .total-card {
+            background: linear-gradient(135deg, #FC6044 0%, #FF7A5C 100%);
+        }
+        
+        .red-theme .pulse-glow {
+            animation: pulse-glow-red 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-glow-red {
+            0% { box-shadow: 0 4px 20px rgba(252, 96, 68, 0.3); }
+            100% { box-shadow: 0 8px 30px rgba(252, 96, 68, 0.5); }
+        }
+        
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(40, 176, 81, 0.4);
+            outline: none;
+        }
+        
+        .amount-display {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        /* Light theme styles */
+        .light-theme {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+        }
+
+        .light-theme h1 {
+            color: #1f2937;
+        }
+
+        .light-theme .input-field {
+            background-color: #f9fafb;
+            color: #1f2937;
+        }
+
+        .light-theme .input-field::placeholder {
+            color: #9ca3af;
+        }
+
+        .light-theme #theme-toggle {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            border-color: #d1d5db;
+        }
+
+        .light-theme #theme-toggle:hover {
+            background-color: #e5e7eb;
+        }
+
+        .light-theme .fixed button:not(#theme-toggle) {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            border-color: #d1d5db;
+        }
+
+        .light-theme .fixed button:not(#theme-toggle):hover {
+            background-color: #e5e7eb;
+        }
+
+        /* Force white background for light theme */
+        body.light-theme {
+            background: #ffffff !important;
+            background-image: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+        }
+
+        /* Dark theme styles */
+        .dark-theme {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="min-h-full bg-gradient-to-br from-gray-900 to-gray-800 p-4">
+  <div class="max-w-4xl mx-auto"><!-- Theme Toggle Button -->
+   <div class="fixed top-4 left-4 z-10"><button onclick="toggleDarkMode()" id="theme-toggle" class="bg-gray-700 hover:bg-gray-600 text-white font-bold p-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 border border-gray-600" title="Alternar tema oscuro/claro"> ☀️ </button>
+   </div><!-- Color Change Button -->
+   <div class="fixed top-4 right-4 z-10"><button onclick="toggleColorTheme()" class="bg-gray-700 hover:bg-gray-600 text-white font-bold p-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 border border-gray-600" title="Cambiar color"> 🎨 </button>
+   </div><!-- Logo -->
+   <div class="text-center mb-6"><img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="mx-auto h-20 w-auto mb-4" onerror="this.style.display='none'; this.alt='Logo no disponible';">
+   </div><!-- Header -->
+   <div class="text-center mb-8">
+    <h1 id="calculator-title" class="text-4xl font-bold text-white mb-2">Calculadora de Billetes</h1>
+   </div><!-- Bill Input Cards -->
+   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8"><!-- Billete 500 -->
+    <div class="bill-card rounded-xl p-6 text-white shadow-lg">
+     <div class="text-center mb-4"><img src="https://i.imgur.com/Vjvn6fd.jpg" alt="Billete 500" class="w-full h-16 mx-auto mb-2 rounded object-contain" onerror="this.style.display='none'; this.alt='💴';">
+      <h3 class="text-lg font-semibold">Billetes de</h3>
+      <div class="text-2xl font-bold" id="currency-500">
+       $
+      </div>
+      <div class="text-xl">
+       500
+      </div>
+     </div><input type="number" id="bills-500" class="input-field w-full p-3 rounded-lg border-0 bg-gray-800 text-white text-center text-lg font-semibold placeholder-gray-400" placeholder="0" min="0" oninput="calculateTotals()">
+     <div class="mt-3 text-center">
+      <div class="text-sm opacity-80">
+       Subtotal:
+      </div>
+      <div class="amount-display text-lg font-bold" id="subtotal-500">
+       $0
+      </div>
+     </div>
+    </div><!-- Billete 1000 -->
+    <div class="bill-card rounded-xl p-6 text-white shadow-lg">
+     <div class="text-center mb-4"><img src="https://i.imgur.com/Mi2Ecs4.jpg" alt="Billete 1000" class="w-full h-16 mx-auto mb-2 rounded object-contain" onerror="this.style.display='none'; this.alt='💵';">
+      <h3 class="text-lg font-semibold">Billetes de</h3>
+      <div class="text-2xl font-bold" id="currency-1000">
+       $
+      </div>
+      <div class="text-xl">
+       1,000
+      </div>
+     </div><input type="number" id="bills-1000" class="input-field w-full p-3 rounded-lg border-0 bg-gray-800 text-white text-center text-lg font-semibold placeholder-gray-400" placeholder="0" min="0" oninput="calculateTotals()">
+     <div class="mt-3 text-center">
+      <div class="text-sm opacity-80">
+       Subtotal:
+      </div>
+      <div class="amount-display text-lg font-bold" id="subtotal-1000">
+       $0
+      </div>
+     </div>
+    </div><!-- Billete 2000 -->
+    <div class="bill-card rounded-xl p-6 text-white shadow-lg">
+     <div class="text-center mb-4"><img src="https://i.imgur.com/ofyPAg8.jpg" alt="Billete 2000" class="w-full h-16 mx-auto mb-2 rounded object-contain" onerror="this.style.display='none'; this.alt='💶';">
+      <h3 class="text-lg font-semibold">Billetes de</h3>
+      <div class="text-2xl font-bold" id="currency-2000">
+       $
+      </div>
+      <div class="text-xl">
+       2,000
+      </div>
+     </div><input type="number" id="bills-2000" class="input-field w-full p-3 rounded-lg border-0 bg-gray-800 text-white text-center text-lg font-semibold placeholder-gray-400" placeholder="0" min="0" oninput="calculateTotals()">
+     <div class="mt-3 text-center">
+      <div class="text-sm opacity-80">
+       Subtotal:
+      </div>
+      <div class="amount-display text-lg font-bold" id="subtotal-2000">
+       $0
+      </div>
+     </div>
+    </div><!-- Billete 10000 -->
+    <div class="bill-card rounded-xl p-6 text-white shadow-lg">
+     <div class="text-center mb-4"><img src="https://i.imgur.com/DOerBMQ.jpg" alt="Billete 10000" class="w-full h-16 mx-auto mb-2 rounded object-contain" onerror="this.style.display='none'; this.alt='💷';">
+      <h3 class="text-lg font-semibold">Billetes de</h3>
+      <div class="text-2xl font-bold" id="currency-10000">
+       $
+      </div>
+      <div class="text-xl">
+       10,000
+      </div>
+     </div><input type="number" id="bills-10000" class="input-field w-full p-3 rounded-lg border-0 bg-gray-800 text-white text-center text-lg font-semibold placeholder-gray-400" placeholder="0" min="0" oninput="calculateTotals()">
+     <div class="mt-3 text-center">
+      <div class="text-sm opacity-80">
+       Subtotal:
+      </div>
+      <div class="amount-display text-lg font-bold" id="subtotal-10000">
+       $0
+      </div>
+     </div>
+    </div><!-- Billete 20000 -->
+    <div class="bill-card rounded-xl p-6 text-white shadow-lg">
+     <div class="text-center mb-4"><img src="https://i.imgur.com/FKpwn4s.jpg" alt="Billete 20000" class="w-full h-16 mx-auto mb-2 rounded object-contain" onerror="this.style.display='none'; this.alt='💴';">
+      <h3 class="text-lg font-semibold">Billetes de</h3>
+      <div class="text-2xl font-bold" id="currency-20000">
+       $
+      </div>
+      <div class="text-xl">
+       20,000
+      </div>
+     </div><input type="number" id="bills-20000" class="input-field w-full p-3 rounded-lg border-0 bg-gray-800 text-white text-center text-lg font-semibold placeholder-gray-400" placeholder="0" min="0" oninput="calculateTotals()">
+     <div class="mt-3 text-center">
+      <div class="text-sm opacity-80">
+       Subtotal:
+      </div>
+      <div class="amount-display text-lg font-bold" id="subtotal-20000">
+       $0
+      </div>
+     </div>
+    </div>
+   </div><!-- Total Card -->
+   <div class="total-card rounded-xl p-8 text-white shadow-2xl text-center">
+    <div class="mb-4">
+     <div class="text-3xl mb-2">
+      🏦
+     </div>
+     <h2 class="text-2xl font-bold" id="total-label">Total General</h2>
+    </div>
+    <div class="amount-display text-5xl font-bold mb-4" id="grand-total">
+     $0
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
+     <div>
+      <div class="opacity-80">
+       Billetes de 500:
+      </div>
+      <div class="font-semibold" id="count-500">
+       0
+      </div>
+     </div>
+     <div>
+      <div class="opacity-80">
+       Billetes de 1,000:
+      </div>
+      <div class="font-semibold" id="count-1000">
+       0
+      </div>
+     </div>
+     <div>
+      <div class="opacity-80">
+       Billetes de 2,000:
+      </div>
+      <div class="font-semibold" id="count-2000">
+       0
+      </div>
+     </div>
+     <div>
+      <div class="opacity-80">
+       Billetes de 10,000:
+      </div>
+      <div class="font-semibold" id="count-10000">
+       0
+      </div>
+     </div>
+     <div>
+      <div class="opacity-80">
+       Billetes de 20,000:
+      </div>
+      <div class="font-semibold" id="count-20000">
+       0
+      </div>
+     </div>
+    </div>
+   </div><!-- Clear Button -->
+   <div class="text-center mt-6"><button onclick="clearAll()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"> 🗑️ Limpiar Todo </button>
+   </div>
+  </div>
+  <script>
+        const defaultConfig = {
+            calculator_title: "Calculadora de Billetes",
+            currency_symbol: "$",
+            total_label: "Total General"
+        };
+
+        function formatNumber(num) {
+            return num.toLocaleString('es-ES');
+        }
+
+        function calculateTotals() {
+            const currencySymbol = window.elementSdk ? (window.elementSdk.config.currency_symbol || defaultConfig.currency_symbol) : defaultConfig.currency_symbol;
+            
+            // Get quantities
+            const bills500 = parseInt(document.getElementById('bills-500').value) || 0;
+            const bills1000 = parseInt(document.getElementById('bills-1000').value) || 0;
+            const bills2000 = parseInt(document.getElementById('bills-2000').value) || 0;
+            const bills10000 = parseInt(document.getElementById('bills-10000').value) || 0;
+            const bills20000 = parseInt(document.getElementById('bills-20000').value) || 0;
+
+            // Calculate subtotals
+            const subtotal500 = bills500 * 500;
+            const subtotal1000 = bills1000 * 1000;
+            const subtotal2000 = bills2000 * 2000;
+            const subtotal10000 = bills10000 * 10000;
+            const subtotal20000 = bills20000 * 20000;
+
+            // Calculate grand total
+            const grandTotal = subtotal500 + subtotal1000 + subtotal2000 + subtotal10000 + subtotal20000;
+
+            // Update subtotals
+            document.getElementById('subtotal-500').textContent = `${currencySymbol}${formatNumber(subtotal500)}`;
+            document.getElementById('subtotal-1000').textContent = `${currencySymbol}${formatNumber(subtotal1000)}`;
+            document.getElementById('subtotal-2000').textContent = `${currencySymbol}${formatNumber(subtotal2000)}`;
+            document.getElementById('subtotal-10000').textContent = `${currencySymbol}${formatNumber(subtotal10000)}`;
+            document.getElementById('subtotal-20000').textContent = `${currencySymbol}${formatNumber(subtotal20000)}`;
+
+            // Update grand total
+            document.getElementById('grand-total').textContent = `${currencySymbol}${formatNumber(grandTotal)}`;
+
+            // Update counts
+            document.getElementById('count-500').textContent = formatNumber(bills500);
+            document.getElementById('count-1000').textContent = formatNumber(bills1000);
+            document.getElementById('count-2000').textContent = formatNumber(bills2000);
+            document.getElementById('count-10000').textContent = formatNumber(bills10000);
+            document.getElementById('count-20000').textContent = formatNumber(bills20000);
+        }
+
+        function clearAll() {
+            document.getElementById('bills-500').value = '';
+            document.getElementById('bills-1000').value = '';
+            document.getElementById('bills-2000').value = '';
+            document.getElementById('bills-10000').value = '';
+            document.getElementById('bills-20000').value = '';
+            calculateTotals();
+        }
+
+        async function render(config) {
+            const title = config.calculator_title || defaultConfig.calculator_title;
+            const currencySymbol = config.currency_symbol || defaultConfig.currency_symbol;
+            const totalLabel = config.total_label || defaultConfig.total_label;
+
+            document.getElementById('calculator-title').textContent = title;
+            document.getElementById('total-label').textContent = totalLabel;
+            
+            // Update currency symbols
+            document.getElementById('currency-500').textContent = currencySymbol;
+            document.getElementById('currency-1000').textContent = currencySymbol;
+            document.getElementById('currency-2000').textContent = currencySymbol;
+            document.getElementById('currency-10000').textContent = currencySymbol;
+            document.getElementById('currency-20000').textContent = currencySymbol;
+
+            // Recalculate with new currency symbol
+            calculateTotals();
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["calculator_title", config.calculator_title || defaultConfig.calculator_title],
+                ["currency_symbol", config.currency_symbol || defaultConfig.currency_symbol],
+                ["total_label", config.total_label || defaultConfig.total_label]
+            ]);
+        }
+
+        // Initialize SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                render,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+
+        // Dark/Light theme toggle function
+        function toggleDarkMode() {
+            const body = document.body;
+            const themeButton = document.getElementById('theme-toggle');
+            
+            if (body.classList.contains('light-theme')) {
+                // Switch to dark theme
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                themeButton.textContent = '☀️';
+                themeButton.title = 'Cambiar a tema claro';
+            } else {
+                // Switch to light theme
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                themeButton.textContent = '🌙';
+                themeButton.title = 'Cambiar a tema oscuro';
+            }
+        }
+
+        // Color theme toggle function (green/red)
+        function toggleColorTheme() {
+            const body = document.body;
+            const totalCard = document.querySelector('.total-card');
+            
+            if (body.classList.contains('red-theme')) {
+                body.classList.remove('red-theme');
+                totalCard.classList.remove('pulse-glow');
+                // Force reflow to restart animation
+                totalCard.offsetHeight;
+                totalCard.classList.add('pulse-glow');
+            } else {
+                body.classList.add('red-theme');
+                totalCard.classList.remove('pulse-glow');
+                // Force reflow to restart animation
+                totalCard.offsetHeight;
+                totalCard.classList.add('pulse-glow');
+            }
+        }
+
+        // Initial calculation
+        calculateTotals();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99a51a917075f1ca',t:'MTc2MjQzNzQ4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
