@@ -60,7 +60,7 @@
     <div class="space-y-1">
      <div class="text-white/60 text-xs font-semibold uppercase tracking-wider px-4 py-2">
       Navegación
-     </div><button onclick="showPage('mainMenu')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏠</span> <span class="font-medium">Inicio</span> </button> <button onclick="showPage('circulares')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📋</span> <span class="font-medium">Circulares</span> </button> <button onclick="showPage('simuladores')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🧮</span> <span class="font-medium">Simuladores</span> </button> <button onclick="showPage('listadosIndividuales')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📝</span> <span class="font-medium">Listados Individuales</span> </button> <button onclick="showPage('listadosSP')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏷️</span> <span class="font-medium">Listados SP</span> </button>
+     </div><button onclick="showPage('mainMenu')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏠</span> <span class="font-medium">Inicio</span> </button> <button onclick="showPage('circulares')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📋</span> <span class="font-medium">Circulares</span> </button> <button onclick="showPage('simuladores')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🧮</span> <span class="font-medium">Simuladores</span> </button> <button onclick="showPage('simuladorBYM')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏢</span> <span class="font-medium">Simulador BYM</span> </button> <button onclick="showPage('listadosIndividuales')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">📝</span> <span class="font-medium">Listados Individuales</span> </button> <button onclick="showPage('listadosSP')" class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300"> <span class="text-lg mr-3">🏷️</span> <span class="font-medium">Listados SP</span> </button>
     </div><!-- Separador -->
     <div class="w-full h-px bg-white/30 my-2"></div><!-- Enlaces directos principales -->
     <div class="space-y-1">
@@ -327,7 +327,16 @@
      <h1 class="text-4xl font-bold text-white mb-2">Circulares por Marca</h1>
      <p class="text-white/80 text-lg">Selecciona la marca para ver sus circulares</p>
     </div><!-- Marcas Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32"><!-- Volkswagen -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32"><!-- Simulador BYM -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('simuladorBYM')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xl mr-4 overflow-hidden"><img src="https://i.imgur.com/zv99dUA.png" alt="Simulador BYM" class="w-8 h-8" onerror="this.style.display='none'; this.parentElement.innerHTML='🏢';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Simulador BYM</h3>
+       </div>
+      </div>
+     </div><!-- Volkswagen -->
      <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openBrand('volkswagen')">
       <div class="flex items-center">
        <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 flex items-center justify-center text-white text-xl mr-4"><img src="https://cdn.iconscout.com/icon/free/png-256/free-volkswagen-icon-svg-download-png-202922.png" alt="Volkswagen" class="w-8 h-8" onerror="this.style.display='none';">
@@ -416,7 +425,16 @@
      <h1 class="text-4xl font-bold text-white mb-2">Simuladores por Marca</h1>
      <p class="text-white/80 text-lg">Selecciona la marca para acceder a sus simuladores</p>
     </div><!-- Marcas Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32"><!-- Volkswagen -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32"><!-- Simulador BYM -->
+     <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('simuladorBYM')">
+      <div class="flex items-center">
+       <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xl mr-4 overflow-hidden"><img src="https://i.imgur.com/zv99dUA.png" alt="Simulador BYM" class="w-8 h-8" onerror="this.style.display='none'; this.parentElement.innerHTML='🏢';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-lg">Simulador BYM</h3>
+       </div>
+      </div>
+     </div><!-- Volkswagen -->
      <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="openSimulator('volkswagen')">
       <div class="flex items-center">
        <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 flex items-center justify-center text-white text-xl mr-4"><img src="https://cdn.iconscout.com/icon/free/png-256/free-volkswagen-icon-svg-download-png-202922.png" alt="Volkswagen" class="w-8 h-8" onerror="this.style.display='none';">
@@ -755,6 +773,50 @@
      </div>
     </div>
    </div>
+  </div><!-- PÁGINA DE SIMULADOR BYM -->
+  <div id="simuladorBYM" class="page">
+   <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
+    <div class="mb-8"><button onclick="showPage('simuladores')" class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20"> <span class="text-xl">←</span> <span>Volver a Simuladores</span> </button>
+    </div><!-- Header -->
+    <div class="text-center mb-12">
+     <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden"><!-- Logo personalizado --> <img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="w-full h-full object-cover rounded-full" style="display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+       🚗
+      </div>
+     </div>
+     <h1 class="text-4xl font-bold text-white mb-2">Simulador BYM</h1>
+     <p class="text-white/80 text-lg">Selecciona el asesor comercial para acceder a su simulador</p>
+    </div><!-- Asesores Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32"><!-- Juan Weimer -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openSimuladorBYM('juan-weimer')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/YSOgHS3.png" alt="Juan Weimer" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Juan Weimer</h3>
+       </div>
+      </div>
+     </div><!-- Javier Valenzuela -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openSimuladorBYM('javier-valenzuela')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/4XlJAg9.png" alt="Javier Valenzuela" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Javier Valenzuela</h3>
+       </div>
+      </div>
+     </div><!-- Cristian Cabral -->
+     <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer" onclick="openSimuladorBYM('cristian-cabral')">
+      <div class="flex items-center">
+       <div class="w-20 h-20 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-6 overflow-hidden"><img src="https://i.imgur.com/PIoR11P.png" alt="Cristian Cabral" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍💼';">
+       </div>
+       <div>
+        <h3 class="text-white font-semibold text-2xl">Cristian Cabral</h3>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
   </div><!-- PÁGINA DE UNIDAD DE SERVICIOS INTERNOS -->
   <div id="unidadServicios" class="page">
    <div class="max-w-4xl mx-auto fade-in"><!-- Back Button -->
@@ -1055,6 +1117,27 @@
             }
         }
 
+        // Función para abrir simulador BYM
+        function openSimuladorBYM(asesor) {
+            // Añadir efecto de click
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // URLs específicas para cada asesor del simulador BYM
+            const simuladorBYMUrls = {
+                'juan-weimer': 'https://docs.google.com/spreadsheets/d/1O5xi6XVZ842py8hDUX3AaErh7y0ZWltFAMNcPI0Cv5o/edit?usp=sharing',
+                'javier-valenzuela': 'https://docs.google.com/spreadsheets/d/1VI4-su5RhJRbADnFI1G8CBxgJCieFNoOxO_3SUjP7dw/edit?usp=sharing',
+                'cristian-cabral': 'https://docs.google.com/spreadsheets/d/12-atEL71hZF0I5R-IAFIrP7HlS92mRhTNgvWxxuiibI/edit?usp=sharing'
+            };
+            
+            const url = simuladorBYMUrls[asesor];
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
 
 
 
@@ -1131,5 +1214,5 @@
             }, 100);
         });
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999e25c9d1ccf1ca',t:'MTc2MjM2NDU0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ad84099041c6eb',t:'MTc2MjUyNTY5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
