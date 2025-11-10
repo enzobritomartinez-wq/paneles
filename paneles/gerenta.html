@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PANEL DE CONTROL - GERENTA</title>
+  <title>PANEL DE GERENTA</title>
   <link rel="icon" type="image/png" href="https://i.imgur.com/zv99dUA.png">
   <script src="/_sdk/element_sdk.js"></script>
   <style>
@@ -229,7 +229,7 @@
    <div class="logo-container"><img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="logo" onerror="this.src=''; this.alt='Logo no disponible'; this.style.display='none';">
    </div>
    <h1 class="menu-title" id="menuTitle">Panel de Gerenta</h1>
-   <nav class="menu-links" id="menuLinks"><a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link1">Tareas Asistente Comercial</a> <a href="https://docs.google.com/spreadsheets/d/1Xxrf36FbfrTVq60LzzmGi11uA4_VBRgLiYm4qCqwnDU/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link3">Créditos - Gestoría</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link4">Sueldos</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link5">Préstamos Asesores</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link7">Toma de rendiciones</a> <a href="https://enzobritomartinez-wq.github.io/paneles/paneles/calculadora.html" class="menu-link" target="_blank" rel="noopener noreferrer" id="link8">Calculadora de billetes</a> <a href="https://docs.google.com/spreadsheets/d/1gRfbrg6BP6RksNOg6TVDV1k0wGboYg7nXcgnNV8UlfQ/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link9">Choque</a>
+   <nav class="menu-links" id="menuLinks"><a href="https://docs.google.com/spreadsheets/d/1LbjquqzHn8Is6gCgYfdxKiwYRPpvlUZy_yQfGUoqBzo/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link1">Tareas Asistente Comercial</a> <a href="https://docs.google.com/spreadsheets/d/1Xxrf36FbfrTVq60LzzmGi11uA4_VBRgLiYm4qCqwnDU/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link3">Créditos - Gestoría</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link4">Sueldos</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link5">Préstamos Asesores</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link7">Toma de rendiciones</a> <a href="https://enzobritomartinez-wq.github.io/paneles/paneles/calculadora.html" class="menu-link" target="_blank" rel="noopener noreferrer" id="link8">Calculadora de billetes</a> <a href="https://docs.google.com/spreadsheets/d/1gRfbrg6BP6RksNOg6TVDV1k0wGboYg7nXcgnNV8UlfQ/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link9">Choque</a> <a href="https://docs.google.com/spreadsheets/d/1doxrDPPv3ep4m6iLOqUL9wkA_4bPJWkiIBTcv-Dgu4c/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link10">Seguimiento</a>
    </nav>
   </div>
   <script>
@@ -243,7 +243,7 @@
       font_size: 16,
       menu_title: "Panel de Gerenta",
       link_1_text: "Tareas Asistente Comercial",
-      link_1_url: "https://example.com",
+      link_1_url: "https://docs.google.com/spreadsheets/d/1LbjquqzHn8Is6gCgYfdxKiwYRPpvlUZy_yQfGUoqBzo/edit?usp=sharing",
       link_2_text: "Préstamos Completos",
       link_2_url: "https://example.com",
       link_3_text: "Créditos - Gestoría",
@@ -259,7 +259,9 @@
       link_8_text: "Calculadora de billetes",
       link_8_url: "https://enzobritomartinez-wq.github.io/paneles/paneles/calculadora.html",
       link_9_text: "Choque",
-      link_9_url: "https://docs.google.com/spreadsheets/d/1gRfbrg6BP6RksNOg6TVDV1k0wGboYg7nXcgnNV8UlfQ/edit?usp=sharing"
+      link_9_url: "https://docs.google.com/spreadsheets/d/1gRfbrg6BP6RksNOg6TVDV1k0wGboYg7nXcgnNV8UlfQ/edit?usp=sharing",
+      link_10_text: "Seguimiento",
+      link_10_url: "https://docs.google.com/spreadsheets/d/1doxrDPPv3ep4m6iLOqUL9wkA_4bPJWkiIBTcv-Dgu4c/edit?usp=sharing"
     };
 
     async function onConfigChange(config) {
@@ -289,7 +291,8 @@
         { id: 'link5', text: config.link_5_text || defaultConfig.link_5_text, url: config.link_5_url || defaultConfig.link_5_url },
         { id: 'link7', text: config.link_7_text || defaultConfig.link_7_text, url: config.link_7_url || defaultConfig.link_7_url },
         { id: 'link8', text: config.link_8_text || defaultConfig.link_8_text, url: config.link_8_url || defaultConfig.link_8_url },
-        { id: 'link9', text: config.link_9_text || defaultConfig.link_9_text, url: config.link_9_url || defaultConfig.link_9_url }
+        { id: 'link9', text: config.link_9_text || defaultConfig.link_9_text, url: config.link_9_url || defaultConfig.link_9_url },
+        { id: 'link10', text: config.link_10_text || defaultConfig.link_10_text, url: config.link_10_url || defaultConfig.link_10_url }
       ];
 
       links.forEach(link => {
@@ -379,7 +382,9 @@
         ["link_8_text", config.link_8_text || defaultConfig.link_8_text],
         ["link_8_url", config.link_8_url || defaultConfig.link_8_url],
         ["link_9_text", config.link_9_text || defaultConfig.link_9_text],
-        ["link_9_url", config.link_9_url || defaultConfig.link_9_url]
+        ["link_9_url", config.link_9_url || defaultConfig.link_9_url],
+        ["link_10_text", config.link_10_text || defaultConfig.link_10_text],
+        ["link_10_url", config.link_10_url || defaultConfig.link_10_url]
       ]);
     }
 
@@ -440,5 +445,5 @@
       });
     }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ada645751d1e8c',t:'MTc2MjUyNzA5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99c5e55791521e8c',t:'MTc2Mjc4MTMzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
