@@ -72,6 +72,8 @@
      </div>
     </div><!-- Nuevo botón de Pedidos de Gerencia -->
     <div class="mt-4"><a href="https://docs.google.com/spreadsheets/d/18gnDuOqSPfTaUW-8BywUSdxtUERW2jsBhNyGb69aZB0/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="block"> <button id="management-button" class="menu-item w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300"> <span>Pedidos de Gerencia</span> </button> </a>
+    </div><!-- Botón de Seguimiento Jefe de USI -->
+    <div class="mt-4"><a href="https://docs.google.com/spreadsheets/d/1yFkkuPKIuswLKxJOtrPcgpDwq16ij4J28vYwQlG8TMk/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="block"> <button id="tracking-button" class="menu-item w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300"> <span>Seguimiento Jefe de USI</span> </button> </a>
     </div>
    </div>
   </main>
@@ -121,6 +123,13 @@
             if (managementButton) {
                 managementButton.style.fontFamily = config.font_family ? `${config.font_family}, Arial, sans-serif` : 'Arial, sans-serif';
                 managementButton.style.fontSize = config.font_size ? `${config.font_size}px` : '16px';
+            }
+
+            // Aplicar estilos al botón de seguimiento
+            const trackingButton = document.getElementById('tracking-button');
+            if (trackingButton) {
+                trackingButton.style.fontFamily = config.font_family ? `${config.font_family}, Arial, sans-serif` : 'Arial, sans-serif';
+                trackingButton.style.fontSize = config.font_size ? `${config.font_size}px` : '16px';
             }
 
             // Aplicar tema al fondo
@@ -278,5 +287,5 @@
         `;
         document.head.appendChild(style);
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'999e1e750749ccba',t:'MTc2MjM2NDI0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99d6d9c6933d1e80',t:'MTc2Mjk1OTEyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
