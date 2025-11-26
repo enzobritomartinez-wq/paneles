@@ -1,315 +1,540 @@
 <!doctype html>
 <html lang="es">
- <head>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PANEL DE CONTROL - GERENCIA</title>
   <link rel="icon" type="image/png" href="https://i.imgur.com/zv99dUA.png">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-        * {
-            box-sizing: border-box !important;
-            margin: 0;
-            padding: 0;
-        }
+    @view-transition {
+      navigation: auto;
+    }
+  </style>
+</head>
+<body
+  data-gradient-root
+  class="min-h-screen bg-gradient-to-br from-emerald-500 to-lime-400 text-slate-900 antialiased"
+>
+  <div class="px-4 py-6 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl space-y-6">
 
-        html {
-            overflow-x: hidden !important;
-            overflow-y: auto !important;
-            width: 100vw !important;
-            max-width: 100vw !important;
-            position: fixed !important;
-            height: 100vh !important;
-        }
+      <!-- Barra superior -->
+      <div class="flex justify-center">
+        <div class="inline-flex gap-2 rounded-full bg-white/20 p-1 shadow-lg backdrop-blur">
+          <button
+            type="button"
+            onclick="openLink('https://enzobritomartinez-wq.github.io/paneles/paneles/asesores.html')"
+            class="inline-flex items-center justify-center rounded-full bg-white/90 px-4 py-2.5 text-sm font-medium text-slate-800 shadow hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+          >
+            <span class="mr-1.5">👥</span>
+            <span>Asesores</span>
+          </button>
 
-        body {
-            box-sizing: border-box !important;
-            margin: 0 !important;
-            padding: 15px !important;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
-            height: 100vh !important;
-            overflow-x: hidden !important;
-            overflow-y: auto !important;
-            width: 100vw !important;
-            max-width: 100vw !important;
-            position: relative !important;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-        }
+          <button
+            type="button"
+            onclick="openLink('https://enzobritomartinez-wq.github.io/paneles/paneles/administracion.html')"
+            class="inline-flex items-center justify-center rounded-full bg-white/90 px-4 py-2.5 text-sm font-medium text-slate-800 shadow hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+          >
+            <span class="mr-1.5">📊</span>
+            <span>Administración</span>
+          </button>
 
-        .container {
-            max-width: 1170px;
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box !important;
-            overflow: hidden !important;
-            padding: 0 15px;
-        }
+          <button
+            type="button"
+            onclick="openLink('https://enzobritomartinez-wq.github.io/paneles/paneles/usi.html')"
+            class="inline-flex items-center justify-center rounded-full bg-white/90 px-4 py-2.5 text-sm font-medium text-slate-800 shadow hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+          >
+            <span class="mr-1.5">🔧</span>
+            <span>USI</span>
+          </button>
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+          <button
+            type="button"
+            onclick="openLink('https://enzobritomartinez-wq.github.io/paneles/paneles/due%C3%B1os.html')"
+            class="inline-flex items-center justify-center rounded-full bg-white/90 px-4 py-2.5 text-sm font-medium text-slate-800 shadow hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+          >
+            <span class="mr-1.5">👑</span>
+            <span>Dueños</span>
+          </button>
+        </div>
+      </div>
 
-        .logo {
-            width: 120px;
-            height: 120px;
-            background: white;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            overflow: hidden;
-        }
+      <!-- Header -->
+      <header class="flex flex-col items-center gap-4 pt-2 text-center">
+        <div class="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-white shadow-xl shadow-black/20">
+          <img
+            src="https://i.imgur.com/zv99dUA.png"
+            alt="Logo"
+            class="h-24 w-24 rounded-full object-cover"
+            onerror="this.src=''; this.alt='Logo no disponible'; this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;text-xl font-semibold text-slate-500&quot;>LOGO</div>';"
+          >
+        </div>
 
-        .logo img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
+        <button
+          type="button"
+          onclick="toggleTheme()"
+          class="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/20 px-5 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur hover:bg-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+        >
+          <span>🎨</span>
+          <span>Cambiar color</span>
+        </button>
+      </header>
 
-        .color-toggle {
-            background: rgba(255,255,255,0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-            position: relative;
-        }
+      <!-- Bloque Superior: Panel de Gerencia -->
+      <section>
+        <div class="rounded-2xl bg-white/95 p-5 shadow-xl shadow-black/10 backdrop-blur sm:p-6">
+          <h2
+            data-accent="title"
+            class="mb-4 border-b-4 border-emerald-400 pb-3 text-center text-xl font-semibold text-slate-900"
+          >
+            Panel de Gerencia
+          </h2>
 
-        .color-toggle:hover {
-            background: rgba(255,255,255,0.3);
-        }
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Botones -->
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1a8Yl07z7vpxRStjLyusrVROx0e9kc9a1isaI8Oz1nbw/edit?ouid=46542&amp;usp=sheets_home&amp;ths=true')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Lista de usados propia</span>
+            </button>
 
-        .menu-block {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1esyqJIMXenQVeTt1z6g-APmKRXOPq4ZgD1BIh0gkgCc/edit?gid=0#gid=0')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Listado SP Propio</span>
+            </button>
 
-        .block-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 25px;
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #4CAF50;
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1zDlLpq1B0ikijbGbd0-jOBA-ES_2pFSq0W-p0mvw5pA/edit?gid=1485866881#gid=1485866881')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Lista de Usados</span>
+            </button>
 
-        .buttons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            width: 100%;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1XNPwjPQLlGt05ACHP-TYf1th-LnTH28_sEeKJrnVs2g/edit?gid=2105211617#gid=2105211617')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Juan Weimer</span>
+            </button>
 
-        .menu-button {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 18px 24px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 100%;
-            box-sizing: border-box !important;
-            overflow: hidden;
-            word-wrap: break-word;
-            position: relative;
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1zReUsy0PbqDz_7CueavpUrXY-3AWkha_7xJ4CPtHNzc/edit?gid=1397947714#gid=1397947714')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Emanuel Brito</span>
+            </button>
 
-        .menu-button:hover {
-            background: #45a049;
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1ElfpbA-rGEMXMqyL-wN8ZyHgO4ZcexBEgrn4K22EYsM/edit?gid=1767464422#gid=1767464422')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Cristian Cabral</span>
+            </button>
 
-        .menu-button:active {
-            background: #3d8b40;
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1glzDfGIWGW8cqw5Lo2lHnGWiU-sCt0k4y5ZteT9jUQI/edit?gid=2038789508#gid=2038789508')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Javier Valenzuela</span>
+            </button>
 
-        /* Tema rojo */
-        .red-theme {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1IqMd5v7g_G92gwYX6nyymEbjwNc8OMUxk8DmQKs-4i8/edit?gid=0#gid=0')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Precios 0KM</span>
+            </button>
 
-        .red-theme .block-title {
-            border-bottom-color: #ff6b6b;
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1LbjquqzHn8Is6gCgYfdxKiwYRPpvlUZy_yQfGUoqBzo/edit?gid=0#gid=0')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Tareas realizadas Asistente Comercial</span>
+            </button>
 
-        .red-theme .menu-button {
-            background: #ff6b6b;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1V0f4dazgdMfiqdhPH78ggfRyMzK66BsCyZj6403Y0TI/edit?gid=788287904#gid=788287904')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Simulador Usados</span>
+            </button>
 
-        .red-theme .menu-button:hover {
-            background: #ff5252;
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1KHqSaFzsm0Phn9zJiUtXXzVYisjNzzXoKwmDV-XnW8g/edit?usp=sharing')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Seguimientos Juanchi</span>
+            </button>
 
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1M_cnuPux8gvweQc073rQCMrpnXpSSJ7iGQ7g0bdVyT4/edit?gid=979336212#gid=979336212')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Panel de Control</span>
+            </button>
 
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/1Xxrf36FbfrTVq60LzzmGi11uA4_VBRgLiYm4qCqwnDU/edit?usp=sharing')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Créditos - Gestoría</span>
+            </button>
 
-        @media (max-width: 1400px) {
-            .buttons-grid {
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            }
-        }
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://docs.google.com/spreadsheets/d/13n3YICb8EWWTwiYUTDrarpzKfi19O7oyAIW_WV4jrQY/edit?gid=607517631#gid=607517631')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/iWU4uiW.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Inversores Familia</span>
+            </button>
+          </div>
+        </div>
+      </section>
 
-        @media (max-width: 1200px) {
-            .buttons-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-            
-            .container {
-                width: calc(100% - 20px);
-            }
-            
-            body {
-                padding: 10px;
-            }
-        }
+      <!-- Bloque Inferior: Herramientas -->
+      <section>
+        <div class="rounded-2xl bg-white/95 p-5 shadow-xl shadow-black/10 backdrop-blur sm:p-6">
+          <h2
+            data-accent="title"
+            class="mb-4 border-b-4 border-emerald-400 pb-3 text-center text-xl font-semibold text-slate-900"
+          >
+            Herramientas
+          </h2>
 
-        @media (max-width: 900px) {
-            .buttons-grid {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            }
-        }
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://www.ambito.com/contenidos/dolar.html')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <span>💰</span>
+              <span>Cotización del dólar hoy</span>
+            </button>
 
-        @media (max-width: 768px) {
-            .buttons-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .menu-block {
-                padding: 20px;
-            }
-            
-            .menu-button {
-                padding: 16px 20px;
-                font-size: 15px;
-            }
-        }
-    </style>
-  <style>@view-transition { navigation: auto; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
-  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
- </head>
- <body>
-  <div class="container"><!-- Barra Superior -->
-   <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div style="background: rgba(255,255,255,0.15); border-radius: 25px; padding: 8px; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; gap: 8px;"><button class="menu-button" onclick="openLink('https://enzobritomartinez-wq.github.io/paneles/paneles/asesores.html')" style="background: rgba(255,255,255,0.9); color: #333; padding: 12px 24px; font-size: 14px; border-radius: 18px; min-width: 130px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"> 👥 Asesores </button> <button class="menu-button" onclick="openLink('https://enzobritomartinez-wq.github.io/paneles/paneles/administracion.html')" style="background: rgba(255,255,255,0.9); color: #333; padding: 12px 24px; font-size: 14px; border-radius: 18px; min-width: 130px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"> 📊 Administración </button> <button class="menu-button" onclick="openLink('https://enzobritomartinez-wq.github.io/paneles/paneles/usi.html')" style="background: rgba(255,255,255,0.9); color: #333; padding: 12px 24px; font-size: 14px; border-radius: 18px; min-width: 130px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"> 🔧 USI </button> <button class="menu-button" onclick="openLink('https://enzobritomartinez-wq.github.io/paneles/paneles/due%C3%B1os.html')" style="background: rgba(255,255,255,0.9); color: #333; padding: 12px 24px; font-size: 14px; border-radius: 18px; min-width: 130px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"> 👑 Dueños </button>
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://www2.jus.gov.ar/dnrpa-site/#!/estimador')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <span>📊</span>
+              <span>Estimador de costos</span>
+            </button>
+
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://mail.google.com/mail/u/0/')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <img
+                src="https://i.imgur.com/40cLDYE.png"
+                alt=""
+                class="h-5 w-5 shrink-0"
+                onerror="this.style.display='none';"
+              >
+              <span>Gmail</span>
+            </button>
+
+            <button
+              type="button"
+              data-accent="button"
+              onclick="openLink('https://bymautomotores.my.canva.site/calculadora')"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              <span>🧮</span>
+              <span>Calculadora de billetes</span>
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
-   </div>
-   <div class="header">
-    <div class="logo"><img src="https://i.imgur.com/zv99dUA.png" alt="Logo" onerror="this.src=''; this.alt='Logo no disponible'; this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-size: 24px; color: #666;\'>LOGO</div>';">
-    </div><button class="color-toggle" onclick="toggleTheme()"> 🎨 Cambiar Color </button>
-   </div><!-- Bloque Superior -->
-   <div class="menu-block">
-    <h2 class="block-title">Panel de Gerencia</h2>
-    <div class="buttons-grid"><button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1a8Yl07z7vpxRStjLyusrVROx0e9kc9a1isaI8Oz1nbw/edit?ouid=46542&amp;usp=sheets_home&amp;ths=true')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '🚗 Lista de usados propia';"> Lista de usados propia </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1esyqJIMXenQVeTt1z6g-APmKRXOPq4ZgD1BIh0gkgCc/edit?gid=0#gid=0')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '📋 Listado SP Propio';"> Listado SP Propio </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1zDlLpq1B0ikijbGbd0-jOBA-ES_2pFSq0W-p0mvw5pA/edit?gid=1485866881#gid=1485866881')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '🚙 Lista de Usados';"> Lista de Usados </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1XNPwjPQLlGt05ACHP-TYf1th-LnTH28_sEeKJrnVs2g/edit?gid=2105211617#gid=2105211617')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '👤 Juan Weimer';"> Juan Weimer </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1zReUsy0PbqDz_7CueavpUrXY-3AWkha_7xJ4CPtHNzc/edit?gid=1397947714#gid=1397947714')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '👤 Emanuel Brito';"> Emanuel Brito </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1ElfpbA-rGEMXMqyL-wN8ZyHgO4ZcexBEgrn4K22EYsM/edit?gid=1767464422#gid=1767464422')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '👤 Cristian Cabral';"> Cristian Cabral </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1glzDfGIWGW8cqw5Lo2lHnGWiU-sCt0k4y5ZteT9jUQI/edit?gid=2038789508#gid=2038789508')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '👤 Javier Valenzuela';"> Javier Valenzuela </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1IqMd5v7g_G92gwYX6nyymEbjwNc8OMUxk8DmQKs-4i8/edit?gid=0#gid=0')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '🆕 Precios 0KM';"> Precios 0KM </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1LbjquqzHn8Is6gCgYfdxKiwYRPpvlUZy_yQfGUoqBzo/edit?gid=0#gid=0')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '✅ Tareas realizadas Asistente Comercial';"> Tareas realizadas Asistente Comercial </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1V0f4dazgdMfiqdhPH78ggfRyMzK66BsCyZj6403Y0TI/edit?gid=788287904#gid=788287904')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '🎯 Simulador Usados';"> Simulador Usados </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1KHqSaFzsm0Phn9zJiUtXXzVYisjNzzXoKwmDV-XnW8g/edit?usp=sharing')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '📝 Seguimientos Juanchi';"> Seguimientos Juanchi </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1M_cnuPux8gvweQc073rQCMrpnXpSSJ7iGQ7g0bdVyT4/edit?gid=979336212#gid=979336212')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '🎛️ Panel de Control';"> Panel de Control </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1Xxrf36FbfrTVq60LzzmGi11uA4_VBRgLiYm4qCqwnDU/edit?usp=sharing')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '💳 Créditos - Gestoría';"> Créditos - Gestoría </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/13n3YICb8EWWTwiYUTDrarpzKfi19O7oyAIW_WV4jrQY/edit?gid=607517631#gid=607517631')"> <img src="https://i.imgur.com/iWU4uiW.png" alt="Gestión" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '👨‍👩‍👧‍👦 Inversores Familia';"> Inversores Familia </button>
-    </div>
-   </div><!-- Bloque Inferior -->
-   <div class="menu-block">
-    <h2 class="block-title">Herramientas</h2>
-    <div class="buttons-grid"><button class="menu-button" onclick="openLink('https://www.ambito.com/contenidos/dolar.html')"> 💰 Cotización del dólar hoy </button> <button class="menu-button" onclick="openLink('https://www2.jus.gov.ar/dnrpa-site/#!/estimador')"> 📊 Estimador de costos </button> <button class="menu-button" onclick="openLink('https://mail.google.com/mail/u/0/')"> <img src="https://i.imgur.com/40cLDYE.png" alt="Gmail" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" onerror="this.style.display='none'; this.nextSibling.textContent = '📧 Gmail';"> Gmail </button> <button class="menu-button" onclick="openLink('https://bymautomotores.my.canva.site/calculadora')"> 🧮 Calculadora de billetes </button>
-    </div>
-   </div>
-  </div><!-- Página de Servicios Internos -->
-  <div id="servicesPage" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); z-index: 2000; padding: 20px; box-sizing: border-box; overflow-y: auto;">
-   <div class="container">
-    <div class="header"><button onclick="closeServicesPage()" style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-size: 16px; font-weight: 600; backdrop-filter: blur(10px);"> ← Volver </button>
-     <div class="logo"><img src="https://i.imgur.com/zv99dUA.png" alt="Logo" onerror="this.src=''; this.alt='Logo no disponible'; this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-size: 24px; color: #666;\'>LOGO</div>';">
-     </div>
-     <h1 style="color: white; font-size: 28px; font-weight: 700; margin-bottom: 10px;">Unidad de Servicios Internos</h1>
-    </div>
-    <div class="menu-block">
-     <div class="buttons-grid"><button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1hToscp05EBHkAU2k4raGkULKVGMPD10ZMx8Rqlj-a8c/edit?usp=sharing')"> 📋 Consignaciones </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1Xe5ojoAC_RmZjpjlgpDYQh6C0VMx6c9nmZmX1T9GmyI/edit?usp=sharing')"> 🚗 Usados Libres </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1_Kl7pYIlJY2C7UNzZ7oP-eFg0tAXvZgqxDpU0cMiL4o/edit?usp=sharing')"> 💰 Usados Vendidos </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1Wr4rcRv9HeTMGmjVMOMwvAeFwUN6_el6HWBhapSCmdc/edit?usp=sharing')"> 📋 Faltantes Administración </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1Pepu-A0ED67ZPUugLqxmp-aIOis0i9Hk6f2bngTfmBc/edit?usp=sharing')"> 🛡️ Garantías </button> <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1Gm5QJCId3x61W3wqCbxL5KlDovEVgArq5kVnx9WgB6I/edit?usp=sharing')"> 🏁 Usados Finalizados </button>
-     </div>
-    </div>
-   </div>
   </div>
+
+  <!-- Página de Servicios Internos -->
+  <div
+    id="servicesPage"
+    data-gradient-root
+    class="fixed inset-0 z-50 hidden overflow-y-auto bg-gradient-to-br from-emerald-500 to-lime-400 px-4 py-6 sm:px-6 sm:py-8"
+  >
+    <div class="mx-auto flex max-w-4xl flex-col gap-6">
+      <div class="relative flex flex-col items-center text-center text-white">
+        <button
+          type="button"
+          onclick="closeServicesPage()"
+          class="absolute left-0 top-0 inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-sm backdrop-blur hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+        >
+          ← Volver
+        </button>
+
+        <div class="mt-10 flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-white shadow-xl shadow-black/20">
+          <img
+            src="https://i.imgur.com/zv99dUA.png"
+            alt="Logo"
+            class="h-20 w-20 rounded-full object-cover"
+            onerror="this.src=''; this.alt='Logo no disponible'; this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;text-lg font-semibold text-slate-500&quot;>LOGO</div>';"
+          >
+        </div>
+
+        <h1 class="mt-4 text-2xl font-bold tracking-tight">
+          Unidad de Servicios Internos
+        </h1>
+      </div>
+
+      <div class="rounded-2xl bg-white/95 p-5 shadow-xl shadow-black/10 backdrop-blur sm:p-6">
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <button
+            type="button"
+            data-accent="button"
+            onclick="openLink('https://docs.google.com/spreadsheets/d/1hToscp05EBHkAU2k4raGkULKVGMPD10ZMx8Rqlj-a8c/edit?usp=sharing')"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            <span>📋</span>
+            <span>Consignaciones</span>
+          </button>
+
+          <button
+            type="button"
+            data-accent="button"
+            onclick="openLink('https://docs.google.com/spreadsheets/d/1Xe5ojoAC_RmZjpjlgpDYQh6C0VMx6c9nmZmX1T9GmyI/edit?usp=sharing')"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            <span>🚗</span>
+            <span>Usados Libres</span>
+          </button>
+
+          <button
+            type="button"
+            data-accent="button"
+            onclick="openLink('https://docs.google.com/spreadsheets/d/1_Kl7pYIlJY2C7UNzZ7oP-eFg0tAXvZgqxDpU0cMiL4o/edit?usp=sharing')"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            <span>💰</span>
+            <span>Usados Vendidos</span>
+          </button>
+
+          <button
+            type="button"
+            data-accent="button"
+            onclick="openLink('https://docs.google.com/spreadsheets/d/1Wr4rcRv9HeTMGmjVMOMwvAeFwUN6_el6HWBhapSCmdc/edit?usp=sharing')"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            <span>📋</span>
+            <span>Faltantes Administración</span>
+          </button>
+
+          <button
+            type="button"
+            data-accent="button"
+            onclick="openLink('https://docs.google.com/spreadsheets/d/1Pepu-A0ED67ZPUugLqxmp-aIOis0i9Hk6f2bngTfmBc/edit?usp=sharing')"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            <span>🛡️</span>
+            <span>Garantías</span>
+          </button>
+
+          <button
+            type="button"
+            data-accent="button"
+            onclick="openLink('https://docs.google.com/spreadsheets/d/1Gm5QJCId3x61W3wqCbxL5KlDovEVgArq5kVnx9WgB6I/edit?usp=sharing')"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-500/40 transition hover:bg-emerald-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            <span>🏁</span>
+            <span>Usados Finalizados</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-        let isRedTheme = false;
+    let isRedTheme = false;
 
-        function toggleTheme() {
-            const body = document.body;
-            isRedTheme = !isRedTheme;
-            
-            if (isRedTheme) {
-                body.classList.add('red-theme');
-            } else {
-                body.classList.remove('red-theme');
-            }
-        }
+    const GREEN_GRADIENT = ['from-emerald-500', 'to-lime-400'];
+    const RED_GRADIENT = ['from-rose-500', 'to-orange-500'];
 
-        function openServicesPage() {
-            const servicesPage = document.getElementById('servicesPage');
-            const mainContent = document.querySelector('.container');
-            
-            if (servicesPage) {
-                servicesPage.style.display = 'block';
-                // Aplicar tema actual a la página de servicios
-                if (isRedTheme) {
-                    servicesPage.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)';
-                } else {
-                    servicesPage.style.background = 'linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%)';
-                }
-            }
-        }
+    const GREEN_TITLE = ['border-emerald-400'];
+    const RED_TITLE = ['border-rose-400'];
 
-        function closeServicesPage() {
-            const servicesPage = document.getElementById('servicesPage');
-            if (servicesPage) {
-                servicesPage.style.display = 'none';
-            }
-        }
+    const GREEN_BUTTON = [
+      'bg-emerald-500',
+      'hover:bg-emerald-600',
+      'shadow-emerald-500/40',
+      'focus-visible:ring-emerald-400'
+    ];
+    const RED_BUTTON = [
+      'bg-rose-500',
+      'hover:bg-rose-600',
+      'shadow-rose-500/40',
+      'focus-visible:ring-rose-400'
+    ];
 
-        function openLink(url) {
-            // Abrir enlace en nueva pestaña
-            window.open(url, '_blank', 'noopener,noreferrer');
+    function toggleTheme() {
+      isRedTheme = !isRedTheme;
 
-            // Mostrar mensaje de confirmación
-            const message = document.createElement('div');
-            message.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: rgba(0,0,0,0.8);
-                color: white;
-                padding: 15px 20px;
-                border-radius: 10px;
-                z-index: 1000;
-                font-weight: 600;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            `;
-            message.textContent = `Abriendo enlace...`;
-            document.body.appendChild(message);
+      const roots = document.querySelectorAll('[data-gradient-root]');
+      const titles = document.querySelectorAll('[data-accent="title"]');
+      const buttons = document.querySelectorAll('[data-accent="button"]');
 
-            setTimeout(() => {
-                message.remove();
-            }, 2000);
-        }
-    </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99e6c39cc77e1e9c',t:'MTc2MzEyNTk4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+      roots.forEach(root => {
+        root.classList.remove(...(isRedTheme ? GREEN_GRADIENT : RED_GRADIENT));
+        root.classList.add(...(isRedTheme ? RED_GRADIENT : GREEN_GRADIENT));
+      });
+
+      titles.forEach(el => {
+        el.classList.remove(...(isRedTheme ? GREEN_TITLE : RED_TITLE));
+        el.classList.add(...(isRedTheme ? RED_TITLE : GREEN_TITLE));
+      });
+
+      buttons.forEach(el => {
+        el.classList.remove(...(isRedTheme ? GREEN_BUTTON : RED_BUTTON));
+        el.classList.add(...(isRedTheme ? RED_BUTTON : GREEN_BUTTON));
+      });
+    }
+
+    function openServicesPage() {
+      const servicesPage = document.getElementById('servicesPage');
+      if (!servicesPage) return;
+      servicesPage.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeServicesPage() {
+      const servicesPage = document.getElementById('servicesPage');
+      if (!servicesPage) return;
+      servicesPage.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function openLink(url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+
+      const message = document.createElement('div');
+      message.className =
+        'fixed top-5 right-5 z-50 rounded-xl bg-slate-900/90 px-4 py-2 text-sm font-semibold text-white shadow-lg';
+      message.textContent = 'Abriendo enlace...';
+      document.body.appendChild(message);
+
+      setTimeout(() => {
+        message.remove();
+      }, 2000);
+    }
+  </script>
+</body>
 </html>
