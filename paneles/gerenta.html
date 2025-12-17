@@ -167,14 +167,14 @@
     }
 
     .top-btn {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
       backdrop-filter: blur(20px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.4);
       border-radius: 24px;
       padding: 26px 22px;
       color: #ffffff;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       display: flex;
@@ -187,6 +187,7 @@
       position: relative;
       overflow: hidden;
       min-height: 90px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.4);
     }
 
     .top-btn::before {
@@ -255,8 +256,12 @@
 
     .btn-text {
       font-family: 'Poppins', sans-serif;
-      letter-spacing: 0.3px;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      letter-spacing: 0.5px;
+      text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.8),
+        0 4px 20px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(0, 0, 0, 0.3);
+      font-weight: 700;
     }
 
     .menu-links {
@@ -270,14 +275,14 @@
       align-items: center;
       justify-content: center;
       padding: 24px 18px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
       backdrop-filter: blur(20px);
-      border: 2px solid rgba(255, 255, 255, 0.25);
+      border: 2px solid rgba(255, 255, 255, 0.35);
       color: #ffffff;
       text-decoration: none;
       border-radius: 20px;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       box-shadow:
         0 10px 35px rgba(0, 0, 0, 0.25),
@@ -286,8 +291,11 @@
       overflow: hidden;
       text-align: center;
       min-height: 80px;
-      letter-spacing: 0.2px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      letter-spacing: 0.4px;
+      text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.8),
+        0 4px 20px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(0, 0, 0, 0.3);
     }
 
     .menu-link::before {
