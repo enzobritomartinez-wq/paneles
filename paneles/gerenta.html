@@ -1,83 +1,192 @@
 <!doctype html>
 <html lang="es">
- <head>
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PANEL DE CONTROL - GERENTA</title>
   <link rel="icon" type="image/png" href="https://i.imgur.com/zv99dUA.png">
   <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      box-sizing: border-box;
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #2E7D32 0%, #388E3C 30%, #4CAF50 70%, #66BB6A 100%);
-      min-height: 100%;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(-45deg, #1a5928, #2d7a3e, #228b22, #32cd32);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(10px);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Partículas de fondo animadas */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+      animation: float 20s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
     }
 
     .menu-container {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 32px;
-      padding: 48px 40px;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25), 
-                  0 0 0 1px rgba(255, 255, 255, 0.2) inset;
-      max-width: 900px;
-      width: 90%;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-radius: 40px;
+      padding: 50px 45px;
+      box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+        0 0 60px rgba(50, 205, 50, 0.2);
+      max-width: 950px;
+      width: 92%;
       text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: containerFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes containerFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .logo-container {
-      margin-bottom: 32px;
+      margin-bottom: 35px;
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     .logo {
-      max-width: 200px;
+      max-width: 220px;
       height: auto;
       display: inline-block;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05) rotate(2deg);
     }
 
     .menu-title {
-      font-size: 36px;
+      font-size: 42px;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.95);
-      margin-bottom: 32px;
-      letter-spacing: -1px;
-      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 38px;
+      letter-spacing: -1.5px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: titleShine 3s ease-in-out infinite;
+    }
+
+    @keyframes titleShine {
+
+      0%,
+      100% {
+        filter: brightness(1);
+      }
+
+      50% {
+        filter: brightness(1.1);
+      }
     }
 
     .top-buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 40px;
+      gap: 18px;
+      margin-bottom: 45px;
     }
 
     .top-btn {
-      background: rgba(255, 255, 255, 0.35);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 20px;
-      padding: 24px 20px;
-      color: rgba(255, 255, 255, 1);
-      font-size: 16px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      padding: 26px 22px;
+      color: #ffffff;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      gap: 12px;
+      box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
       position: relative;
       overflow: hidden;
-      min-height: 80px;
+      min-height: 90px;
     }
 
     .top-btn::before {
@@ -87,63 +196,98 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.6s ease;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.7s ease;
+    }
+
+    .top-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
     .top-btn:hover {
-      transform: translateY(-6px) scale(1.02);
-      background: rgba(255, 255, 255, 0.5);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-8px) scale(1.05);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.15));
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(50, 205, 50, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
     .top-btn:hover::before {
       left: 100%;
     }
 
+    .top-btn:hover::after {
+      opacity: 1;
+    }
+
     .top-btn:active {
-      transform: translateY(-3px) scale(1.01);
+      transform: translateY(-4px) scale(1.02);
     }
 
     .btn-emoji {
-      font-size: 28px;
-      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+      font-size: 32px;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+      animation: emojiPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes emojiPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
     }
 
     .btn-text {
-      font-family: 'Inter', sans-serif;
-      letter-spacing: 0.5px;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.3px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     }
 
     .menu-links {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: 18px;
     }
 
     .menu-link {
-      display: block;
-      padding: 22px 20px;
-      background: rgba(255, 255, 255, 0.35);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      color: rgba(255, 255, 255, 1);
-      text-decoration: none;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 600;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      min-height: 75px;
       display: flex;
       align-items: center;
       justify-content: center;
-      letter-spacing: 0.3px;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      padding: 24px 18px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      min-height: 80px;
+      letter-spacing: 0.2px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     }
 
     .menu-link::before {
@@ -153,84 +297,148 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.6s ease;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.7s ease;
+    }
+
+    .menu-link::after {
+      content: '→';
+      position: absolute;
+      right: 15px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.4s ease;
+      font-size: 18px;
     }
 
     .menu-link:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-      background: rgba(255, 255, 255, 0.5);
-      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-7px) scale(1.03);
+      box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.35),
+        0 0 25px rgba(50, 205, 50, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.12));
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
     .menu-link:hover::before {
       left: 100%;
     }
 
+    .menu-link:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
     .menu-link:active {
-      transform: translateY(-2px) scale(1.01);
+      transform: translateY(-3px) scale(1.01);
     }
 
     @media (max-width: 768px) {
       .top-buttons {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 14px;
       }
-      
+
       .menu-links {
         grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .menu-title {
+        font-size: 34px;
       }
     }
 
     @media (max-width: 480px) {
       .menu-container {
-        padding: 32px 24px;
+        padding: 35px 25px;
+        border-radius: 30px;
       }
 
       .menu-title {
         font-size: 28px;
+        margin-bottom: 28px;
       }
 
       .top-buttons {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-bottom: 32px;
+        gap: 12px;
+        margin-bottom: 35px;
       }
 
       .top-btn {
-        padding: 16px 12px;
-        font-size: 12px;
+        padding: 18px 14px;
+        font-size: 13px;
+        min-height: 75px;
       }
 
       .btn-emoji {
-        font-size: 20px;
+        font-size: 24px;
       }
 
       .menu-links {
         grid-template-columns: 1fr;
+        gap: 12px;
       }
 
       .menu-link {
         font-size: 14px;
-        padding: 16px 12px;
-        min-height: 55px;
+        padding: 18px 14px;
+        min-height: 65px;
+      }
+
+      .logo {
+        max-width: 160px;
       }
     }
   </style>
-  <style>@view-transition { navigation: auto; }</style>
+  <style>
+    @view-transition {
+      navigation: auto;
+    }
+  </style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
- </head>
- <body>
+</head>
+
+<body>
   <div class="menu-container">
-   <div class="top-buttons"><a href="https://enzobritomartinez-wq.github.io/paneles/paneles/asesores.html" class="top-btn" target="_blank" rel="noopener noreferrer"> <span class="btn-emoji">👥</span> <span class="btn-text">Asesores</span> </a> <a href="https://enzobritomartinez-wq.github.io/paneles/paneles/administracion.html" class="top-btn" target="_blank" rel="noopener noreferrer"> <span class="btn-emoji">⚙️</span> <span class="btn-text">Administración</span> </a> <a href="https://enzobritomartinez-wq.github.io/paneles/paneles/usi.html" class="top-btn" target="_blank" rel="noopener noreferrer"> <span class="btn-emoji">🏢</span> <span class="btn-text">USI</span> </a> <a href="https://enzobritomartinez-wq.github.io/paneles/paneles/due%C3%B1os.html" class="top-btn" target="_blank" rel="noopener noreferrer"> <span class="btn-emoji">👑</span> <span class="btn-text">Dueños</span> </a>
-   </div>
-   <div class="logo-container"><img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="logo" onerror="this.src=''; this.alt='Logo no disponible'; this.style.display='none';">
-   </div>
-   <h1 class="menu-title" id="menuTitle">Panel de Gerenta</h1>
-   <nav class="menu-links" id="menuLinks"><a href="https://docs.google.com/spreadsheets/d/1LbjquqzHn8Is6gCgYfdxKiwYRPpvlUZy_yQfGUoqBzo/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link1">Tareas Asistente Comercial</a> <a href="https://docs.google.com/spreadsheets/d/1Xxrf36FbfrTVq60LzzmGi11uA4_VBRgLiYm4qCqwnDU/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link3">Créditos - Gestoría</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link4">Sueldos</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link5">Préstamos Asesores</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link7">Toma de rendiciones</a> <a href="https://enzobritomartinez-wq.github.io/paneles/paneles/calculadora.html" class="menu-link" target="_blank" rel="noopener noreferrer" id="link8">Calculadora de billetes</a> <a href="https://docs.google.com/spreadsheets/d/1gRfbrg6BP6RksNOg6TVDV1k0wGboYg7nXcgnNV8UlfQ/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link9">Choque</a> <a href="https://docs.google.com/spreadsheets/d/1doxrDPPv3ep4m6iLOqUL9wkA_4bPJWkiIBTcv-Dgu4c/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link10">Seguimiento gerenta</a> <a href="https://docs.google.com/spreadsheets/d/1KHqSaFzsm0Phn9zJiUtXXzVYisjNzzXoKwmDV-XnW8g/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link11">Seguimientos Juanchi</a> <a href="https://docs.google.com/spreadsheets/d/1UG8Gs1BU4AMJQsxi1vqSPSzQwu8WqgKmHzOMyUHI08A/edit?usp=sharing" class="menu-link" target="_blank" rel="noopener noreferrer" id="link12">Pago de Sueldos Noviembre 2025</a>
-   </nav>
+    <div class="top-buttons"><a href="https://enzobritomartinez-wq.github.io/paneles/paneles/asesores.html"
+        class="top-btn" target="_blank" rel="noopener noreferrer"> <span class="btn-emoji">👥</span> <span
+          class="btn-text">Asesores</span> </a> <a
+        href="https://enzobritomartinez-wq.github.io/paneles/paneles/administracion.html" class="top-btn"
+        target="_blank" rel="noopener noreferrer"> <span class="btn-emoji">⚙️</span> <span
+          class="btn-text">Administración</span> </a> <a
+        href="https://enzobritomartinez-wq.github.io/paneles/paneles/usi.html" class="top-btn" target="_blank"
+        rel="noopener noreferrer"> <span class="btn-emoji">🏢</span> <span class="btn-text">USI</span> </a> <a
+        href="https://enzobritomartinez-wq.github.io/paneles/paneles/due%C3%B1os.html" class="top-btn" target="_blank"
+        rel="noopener noreferrer"> <span class="btn-emoji">👑</span> <span class="btn-text">Dueños</span> </a>
+    </div>
+    <div class="logo-container"><img src="https://i.imgur.com/zv99dUA.png" alt="Logo" class="logo"
+        onerror="this.src=''; this.alt='Logo no disponible'; this.style.display='none';">
+    </div>
+    <h1 class="menu-title" id="menuTitle">Panel de Gerenta</h1>
+    <nav class="menu-links" id="menuLinks"><a
+        href="https://docs.google.com/spreadsheets/d/1LbjquqzHn8Is6gCgYfdxKiwYRPpvlUZy_yQfGUoqBzo/edit?usp=sharing"
+        class="menu-link" target="_blank" rel="noopener noreferrer" id="link1">Tareas Asistente Comercial</a> <a
+        href="https://docs.google.com/spreadsheets/d/1Xxrf36FbfrTVq60LzzmGi11uA4_VBRgLiYm4qCqwnDU/edit?usp=sharing"
+        class="menu-link" target="_blank" rel="noopener noreferrer" id="link3">Créditos - Gestoría</a> <a
+        href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link4">Sueldos</a> <a
+        href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer" id="link5">Préstamos
+        Asesores</a> <a href="https://example.com" class="menu-link" target="_blank" rel="noopener noreferrer"
+        id="link7">Toma de rendiciones</a> <a
+        href="https://enzobritomartinez-wq.github.io/paneles/paneles/calculadora.html" class="menu-link" target="_blank"
+        rel="noopener noreferrer" id="link8">Calculadora de billetes</a> <a
+        href="https://docs.google.com/spreadsheets/d/1gRfbrg6BP6RksNOg6TVDV1k0wGboYg7nXcgnNV8UlfQ/edit?usp=sharing"
+        class="menu-link" target="_blank" rel="noopener noreferrer" id="link9">Choque</a> <a
+        href="https://docs.google.com/spreadsheets/d/1doxrDPPv3ep4m6iLOqUL9wkA_4bPJWkiIBTcv-Dgu4c/edit?usp=sharing"
+        class="menu-link" target="_blank" rel="noopener noreferrer" id="link10">Seguimiento gerenta</a> <a
+        href="https://docs.google.com/spreadsheets/d/1KHqSaFzsm0Phn9zJiUtXXzVYisjNzzXoKwmDV-XnW8g/edit?usp=sharing"
+        class="menu-link" target="_blank" rel="noopener noreferrer" id="link11">Seguimientos Juanchi</a> <a
+        href="https://docs.google.com/spreadsheets/d/1UG8Gs1BU4AMJQsxi1vqSPSzQwu8WqgKmHzOMyUHI08A/edit?usp=sharing"
+        class="menu-link" target="_blank" rel="noopener noreferrer" id="link12">Pago de Sueldos Noviembre 2025</a>
+    </nav>
   </div>
   <script>
     const defaultConfig = {
@@ -278,7 +486,7 @@
       const fontSize = config.font_size || defaultConfig.font_size;
 
       document.body.style.background = `linear-gradient(135deg, ${backgroundColor} 0%, ${secondaryActionColor} 100%)`;
-      
+
       const container = document.querySelector('.menu-container');
       container.style.background = `${surfaceColor}F2`;
 
@@ -402,10 +610,10 @@
       // Crear efecto visual de selección
       const buttons = document.querySelectorAll('.top-btn');
       buttons.forEach(btn => btn.classList.remove('active'));
-      
+
       const clickedButton = event.target.closest('.top-btn');
       clickedButton.classList.add('active');
-      
+
       // Mostrar mensaje de notificación
       showNotification(`Sección ${section.charAt(0).toUpperCase() + section.slice(1)} seleccionada`);
     }
@@ -429,14 +637,14 @@
         transform: translateX(100%);
         transition: transform 0.3s ease;
       `;
-      
+
       document.body.appendChild(notification);
-      
+
       // Animar entrada
       setTimeout(() => {
         notification.style.transform = 'translateX(0)';
       }, 100);
-      
+
       // Remover después de 3 segundos
       setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
@@ -455,5 +663,7 @@
       });
     }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a100551f7525676',t:'MTc2MzU1ODU5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9a100551f7525676',t:'MTc2MzU1ODU5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
 </html>
