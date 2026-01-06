@@ -166,6 +166,17 @@
       margin-bottom: 45px;
     }
 
+    .left-buttons {
+      position: fixed;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 3;
+    }
+
     .top-btn {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
       backdrop-filter: blur(20px);
@@ -348,6 +359,11 @@
         gap: 14px;
       }
 
+      .left-buttons {
+        left: 20px;
+        gap: 12px;
+      }
+
       .menu-links {
         grid-template-columns: repeat(2, 1fr);
         gap: 14px;
@@ -370,9 +386,15 @@
       }
 
       .top-buttons {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 12px;
         margin-bottom: 35px;
+      }
+
+      .left-buttons {
+        left: 15px;
+        gap: 10px;
+        top: 60%;
       }
 
       .top-btn {
@@ -411,6 +433,16 @@
 </head>
 
 <body>
+  <div class="left-buttons">
+    <a href="http://192.168.100.52/recibero/" class="top-btn" target="_blank" rel="noopener noreferrer">
+      <span class="btn-emoji">📄</span>
+      <span class="btn-text">Recibo de cancelación de unidad</span>
+    </a>
+    <a href="http://192.168.100.52/bym-recibos/" class="top-btn" target="_blank" rel="noopener noreferrer">
+      <span class="btn-emoji">🧾</span>
+      <span class="btn-text">Recibero</span>
+    </a>
+  </div>
   <div class="menu-container">
     <div class="top-buttons"><a href="https://enzobritomartinez-wq.github.io/paneles/paneles/asesores.html"
         class="top-btn" target="_blank" rel="noopener noreferrer"> <span class="btn-emoji">👥</span> <span
