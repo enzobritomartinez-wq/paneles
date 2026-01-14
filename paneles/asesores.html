@@ -134,7 +134,9 @@
             <div class="space-y-1">
                 <div class="text-white/60 text-xs font-semibold uppercase tracking-wider px-4 py-2">
                     Catálogo y Fotos
-                </div><button onclick="openLink('https://bymautomotores.psee.io/bymcatalogo')"
+                </div>                <button onclick="openLink('http://192.168.100.52/catalogo_autos/catalogo.php')"
+                    class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300">
+                    <span class="text-lg mr-3">🚗</span> <span class="font-medium">Catálogo Interno</span> </button> <button onclick="openLink('https://bymautomotores.psee.io/bymcatalogo')"
                     class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300">
                     <span class="text-lg mr-3">📸</span> <span class="font-medium">Catálogo BYM</span> </button> <button
                     onclick="openLink('https://usados.cenoa.com.ar/tienda-de-usados/')"
@@ -153,7 +155,7 @@
                     Herramientas
                 </div><button onclick="openLink('https://carapp.iudu.com.ar/')"
                     class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300">
-                    <span class="text-lg mr-3">��</span> <span class="font-medium">IUDÚ</span> </button> <button
+                    <span class="text-lg mr-3">  </span> <span class="font-medium">IUDÚ</span> </button> <button
                     onclick="openLink('https://www2.jus.gov.ar/dnrpa-site/#!/estimador')"
                     class="w-full h-12 rounded-xl bg-white/20 flex items-center px-4 text-white hover:bg-white/30 transition-all duration-300">
                     <span class="text-lg mr-3">🧾</span> <span class="font-medium">Estimador de Costos</span> </button>
@@ -211,7 +213,18 @@
                     </div>
                 </div>
             </div><!-- Enlaces Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32"><!-- 1. Desempeño de Asesores -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32">                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
+                    onclick="openLink('http://192.168.100.52/catalogo_autos/catalogo.php')">
+                    <div class="flex items-center">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 flex items-center justify-center text-white text-xl mr-4">
+                            🚗
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-lg">Catálogo Interno</h3>
+                        </div>
+                    </div>
+                </div><!-- 1. Desempeño de Asesores -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
                     onclick="openLink('http://192.168.100.52/bymsite/resumen.php')">
                     <div class="flex items-center">
@@ -724,7 +737,7 @@
                             class="w-20 h-20 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-6 overflow-hidden">
                             <img src="https://i.imgur.com/YSOgHS3.png" alt="Juan Weimer"
                                 class="w-full h-full object-cover rounded-xl"
-                                onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍�����';">
+                                onerror="this.style.display='none'; this.parentElement.innerHTML='👨‍     ';">
                         </div>
                         <div>
                             <h3 class="text-white font-semibold text-2xl">Juan Weimer</h3>
@@ -1650,3 +1663,4 @@
 </body>
 
 </html>
+
