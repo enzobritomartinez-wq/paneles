@@ -122,38 +122,19 @@
       <div id="asesoresDropdownMenu" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-10"><a href="https://docs.google.com/spreadsheets/d/1kS1sERhJKWdn8jbBmiN-KWSabThSkFNFLqG9zlZiwUg/edit?gid=1118356754#gid=1118356754" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">👨‍💼</span> <span class="text-gray-700 font-medium">Juan Weimer</span> </a> <a href="https://docs.google.com/spreadsheets/d/1LIbO5XRiV3db-4VbXMa0cp1uljlrkvqPXxU666RlfRY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">👨‍💼</span> <span class="text-gray-700 font-medium">Javier Valenzuela</span> </a> <a href="https://docs.google.com/spreadsheets/d/1D7aiiculdRbGMmN48NPtjEBXgkUI-8gN4XGun0cWIwg/edit" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors"> <span class="text-2xl mr-3">👨‍💼</span> <span class="text-gray-700 font-medium">Cristian Cabral</span> </a>
       </div>
      </div><!-- 17. Sueldos -->
-     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1labnpKIwTwGLuUlK3dfFXqmIVuI-IKHXm_z-H7mDmU4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-lime-600 to-lime-700 hover:from-lime-700 hover:to-lime-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
-       <div class="text-5xl mb-4">
-        💼
-       </div><h3 class="text-2xl font-bold mb-3">Sueldos</h3></a>
-     </div><!-- 18. Seguimientos Juanchi -->
-     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1KHqSaFzsm0Phn9zJiUtXXzVYisjNzzXoKwmDV-XnW8g/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
-       <div class="text-5xl mb-4">
-        📊
-       </div><h3 class="text-2xl font-bold mb-3">Seguimientos Juanchi</h3></a>
-     </div><!-- 19. Libre deudas -->
-     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1SuEhuM5XM0f8uRrgRL5fjFxG3HmI7444Mc6_deITdlY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
-       <div class="text-5xl mb-4">
-        🏛️
-       </div><h3 class="text-2xl font-bold mb-3">Libre deudas</h3></a>
-     </div><!-- 20. Datos del Corporativo -->
-     <div class="relative w-full"><a href="https://docs.google.com/spreadsheets/d/1f8Q28a2gbEDpO9ZV21sZ5Ra5_NLGJ3FT_Q5IBKFGptI/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
-       <div class="text-5xl mb-4">
-        🏢
-       </div><h3 class="text-2xl font-bold mb-3">Datos del Corporativo</h3></a>
-     </div>
-     <!-- 21. Recibo de cancelación de unidad -->
-     <div class="relative w-full"><a href="http://192.168.100.52/recibero/" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
-       <div class="text-5xl mb-4">
-        🧾
-       </div><h3 class="text-2xl font-bold mb-3">Recibo de cancelación de unidad</h3></a>
-     </div>
-     <!-- 22. Recibero -->
-     <div class="relative w-full"><a href="http://192.168.100.52/bym-recibos/" target="_blank" rel="noopener noreferrer" class="group bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl block">
-       <div class="text-5xl mb-4">
-        📄
-       </div><h3 class="text-2xl font-bold mb-3">Recibero</h3></a>
-     </div>
+      <!-- 17. Sueldos -->
+      <div class="relative w-full"><!-- Botón principal -->
+       <div class="bg-gradient-to-r from-lime-600 to-lime-700 hover:from-lime-700 hover:to-lime-800 text-white rounded-xl p-8 text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl relative cursor-pointer" onclick="toggleSueldosMenu()">
+        <div class="text-5xl mb-4">
+         💼
+        </div>
+        <h3 class="text-2xl font-bold mb-3">Sueldos</h3><!-- Botón de menú desplegable --> <button onclick="event.stopPropagation(); toggleSueldosMenu()" class="absolute top-3 right-3 bg-lime-800 hover:bg-lime-900 rounded-full p-2 transition-colors">
+         <svg id="sueldosArrow" class="w-4 h-4 text-white transition-transform duration-200" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+         </svg></button>
+       </div><!-- Menú desplegable -->
+       <div id="sueldosDropdownMenu" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-10"> <a href="https://docs.google.com/spreadsheets/d/1labnpKIwTwGLuUlK3dfFXqmIVuI-IKHXm_z-H7mDmU4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100"> <span class="text-2xl mr-3">📅</span> <span class="text-gray-700 font-medium">2025</span> </a> <a href="https://docs.google.com/spreadsheets/d/1mr_-PLcldanNKuspivqI5XAzhHK653WZkjfsuiucfm0/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors"> <span class="text-2xl mr-3">📅</span> <span class="text-gray-700 font-medium">2026</span> </a>
+       </div>
+      </div>
     </div>
    </div>
   </div>
@@ -184,41 +165,59 @@
             }
         }
 
-        function toggleAsesoresMenu() {
-            const menu = document.getElementById('asesoresDropdownMenu');
-            const arrow = document.getElementById('asesoresArrow');
-            
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                arrow.classList.add('rotate-180');
-            } else {
-                menu.classList.add('hidden');
-                arrow.classList.remove('rotate-180');
-            }
-        }
+         function toggleAsesoresMenu() {
+             const menu = document.getElementById('asesoresDropdownMenu');
+             const arrow = document.getElementById('asesoresArrow');
+             
+             if (menu.classList.contains('hidden')) {
+                 menu.classList.remove('hidden');
+                 arrow.classList.add('rotate-180');
+             } else {
+                 menu.classList.add('hidden');
+                 arrow.classList.remove('rotate-180');
+             }
+         }
+
+         function toggleSueldosMenu() {
+             const menu = document.getElementById('sueldosDropdownMenu');
+             const arrow = document.getElementById('sueldosArrow');
+             
+             if (menu.classList.contains('hidden')) {
+                 menu.classList.remove('hidden');
+                 arrow.classList.add('rotate-180');
+             } else {
+                 menu.classList.add('hidden');
+                 arrow.classList.remove('rotate-180');
+             }
+         }
 
         // Cerrar los menús si se hace clic fuera de ellos
         document.addEventListener('click', function(event) {
-            const menu = document.getElementById('dropdownMenu');
-            const comisionesMenu = document.getElementById('comisionesDropdownMenu');
-            const asesoresMenu = document.getElementById('asesoresDropdownMenu');
-            const button = event.target.closest('button');
-            const menuContainer = event.target.closest('.relative');
-            
-            if (!menuContainer) {
-                if (!menu.classList.contains('hidden')) {
-                    menu.classList.add('hidden');
-                    document.getElementById('menuArrow').classList.remove('rotate-180');
-                }
-                if (!comisionesMenu.classList.contains('hidden')) {
-                    comisionesMenu.classList.add('hidden');
-                    document.getElementById('comisionesArrow').classList.remove('rotate-180');
-                }
-                if (asesoresMenu && !asesoresMenu.classList.contains('hidden')) {
-                    asesoresMenu.classList.add('hidden');
-                    document.getElementById('asesoresArrow').classList.remove('rotate-180');
-                }
-            }
+             const menu = document.getElementById('dropdownMenu');
+             const comisionesMenu = document.getElementById('comisionesDropdownMenu');
+             const asesoresMenu = document.getElementById('asesoresDropdownMenu');
+             const sueldosMenu = document.getElementById('sueldosDropdownMenu');
+             const button = event.target.closest('button');
+             const menuContainer = event.target.closest('.relative');
+             
+             if (!menuContainer) {
+                 if (!menu.classList.contains('hidden')) {
+                     menu.classList.add('hidden');
+                     document.getElementById('menuArrow').classList.remove('rotate-180');
+                 }
+                 if (!comisionesMenu.classList.contains('hidden')) {
+                     comisionesMenu.classList.add('hidden');
+                     document.getElementById('comisionesArrow').classList.remove('rotate-180');
+                 }
+                 if (asesoresMenu && !asesoresMenu.classList.contains('hidden')) {
+                     asesoresMenu.classList.add('hidden');
+                     document.getElementById('asesoresArrow').classList.remove('rotate-180');
+                 }
+                 if (sueldosMenu && !sueldosMenu.classList.contains('hidden')) {
+                     sueldosMenu.classList.add('hidden');
+                     document.getElementById('sueldosArrow').classList.remove('rotate-180');
+                 }
+             }
         });
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a7b3b8df02e3f3a',t:'MTc2NDY4Mjc5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
