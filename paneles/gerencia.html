@@ -485,12 +485,13 @@
       'focus-visible:ring-rose-400'
     ];
 
+    // Cache NodeLists to avoid repeated DOM queries
+    const roots = document.querySelectorAll('[data-gradient-root]');
+    const titles = document.querySelectorAll('[data-accent="title"]');
+    const buttons = document.querySelectorAll('[data-accent="button"]');
+
     function toggleTheme() {
       isRedTheme = !isRedTheme;
-
-      const roots = document.querySelectorAll('[data-gradient-root]');
-      const titles = document.querySelectorAll('[data-accent="title"]');
-      const buttons = document.querySelectorAll('[data-accent="button"]');
 
       roots.forEach(root => {
         root.classList.remove(...(isRedTheme ? GREEN_GRADIENT : RED_GRADIENT));
