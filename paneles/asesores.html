@@ -24,6 +24,13 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
+        .link-card:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 4px;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
         .gradient-bg {
             background: linear-gradient(135deg, #32cd32 0%, #228b22 50%, #006400 100%);
         }
@@ -1643,6 +1650,18 @@
             if (savedTheme === 'true') {
                 document.body.classList.add('red-theme');
             }
+
+            // Accesibilidad: Hacer las tarjetas navegables por teclado
+            document.querySelectorAll('.link-card').forEach(card => {
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.click();
+                    }
+                });
+            });
 
             // Animar las tarjetas de la página inicial
             setTimeout(() => {
