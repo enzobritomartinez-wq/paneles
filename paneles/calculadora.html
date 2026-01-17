@@ -11,54 +11,54 @@
         body {
             box-sizing: border-box;
         }
-        
+
         .bill-card {
             transition: all 0.3s ease;
             background: linear-gradient(135deg, #28B051 0%, #32C55F 100%);
         }
-        
+
         .bill-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-        
+
         .total-card {
             background: linear-gradient(135deg, #28B051 0%, #32C55F 100%);
             animation: pulse-glow 2s ease-in-out infinite alternate;
         }
-        
+
         @keyframes pulse-glow {
             0% { box-shadow: 0 4px 20px rgba(40, 176, 81, 0.3); }
             100% { box-shadow: 0 8px 30px rgba(40, 176, 81, 0.5); }
         }
-        
+
         .red-theme .bill-card {
             background: linear-gradient(135deg, #FC6044 0%, #FF7A5C 100%);
         }
-        
+
         .red-theme .total-card {
             background: linear-gradient(135deg, #FC6044 0%, #FF7A5C 100%);
         }
-        
+
         .red-theme .pulse-glow {
             animation: pulse-glow-red 2s ease-in-out infinite alternate;
         }
-        
+
         @keyframes pulse-glow-red {
             0% { box-shadow: 0 4px 20px rgba(252, 96, 68, 0.3); }
             100% { box-shadow: 0 8px 30px rgba(252, 96, 68, 0.5); }
         }
-        
+
         .input-field {
             transition: all 0.3s ease;
         }
-        
+
         .input-field:focus {
             transform: scale(1.02);
             box-shadow: 0 0 20px rgba(40, 176, 81, 0.4);
             outline: none;
         }
-        
+
         .amount-display {
             font-family: 'Courier New', monospace;
             letter-spacing: 1px;
@@ -287,19 +287,46 @@
             total_label: "Total General"
         };
 
+        // Cache DOM elements
+        const ui = {
+            inputs: {},
+            subtotals: {},
+            counts: {},
+            currencies: {},
+            grandTotal: null,
+            calculatorTitle: null,
+            totalLabel: null
+        };
+
+        function cacheElements() {
+            const denominations = ['500', '1000', '2000', '10000', '20000'];
+            denominations.forEach(denom => {
+                ui.inputs[denom] = document.getElementById(`bills-${denom}`);
+                ui.subtotals[denom] = document.getElementById(`subtotal-${denom}`);
+                ui.counts[denom] = document.getElementById(`count-${denom}`);
+                ui.currencies[denom] = document.getElementById(`currency-${denom}`);
+            });
+            ui.grandTotal = document.getElementById('grand-total');
+            ui.calculatorTitle = document.getElementById('calculator-title');
+            ui.totalLabel = document.getElementById('total-label');
+        }
+
+        // Initialize cache
+        cacheElements();
+
         function formatNumber(num) {
             return num.toLocaleString('es-ES');
         }
 
         function calculateTotals() {
             const currencySymbol = window.elementSdk ? (window.elementSdk.config.currency_symbol || defaultConfig.currency_symbol) : defaultConfig.currency_symbol;
-            
-            // Get quantities
-            const bills500 = parseInt(document.getElementById('bills-500').value) || 0;
-            const bills1000 = parseInt(document.getElementById('bills-1000').value) || 0;
-            const bills2000 = parseInt(document.getElementById('bills-2000').value) || 0;
-            const bills10000 = parseInt(document.getElementById('bills-10000').value) || 0;
-            const bills20000 = parseInt(document.getElementById('bills-20000').value) || 0;
+
+            // Get quantities using cached elements
+            const bills500 = parseInt(ui.inputs['500'].value) || 0;
+            const bills1000 = parseInt(ui.inputs['1000'].value) || 0;
+            const bills2000 = parseInt(ui.inputs['2000'].value) || 0;
+            const bills10000 = parseInt(ui.inputs['10000'].value) || 0;
+            const bills20000 = parseInt(ui.inputs['20000'].value) || 0;
 
             // Calculate subtotals
             const subtotal500 = bills500 * 500;
@@ -311,30 +338,31 @@
             // Calculate grand total
             const grandTotal = subtotal500 + subtotal1000 + subtotal2000 + subtotal10000 + subtotal20000;
 
-            // Update subtotals
-            document.getElementById('subtotal-500').textContent = `${currencySymbol}${formatNumber(subtotal500)}`;
-            document.getElementById('subtotal-1000').textContent = `${currencySymbol}${formatNumber(subtotal1000)}`;
-            document.getElementById('subtotal-2000').textContent = `${currencySymbol}${formatNumber(subtotal2000)}`;
-            document.getElementById('subtotal-10000').textContent = `${currencySymbol}${formatNumber(subtotal10000)}`;
-            document.getElementById('subtotal-20000').textContent = `${currencySymbol}${formatNumber(subtotal20000)}`;
+            // Update subtotals using cached elements
+            ui.subtotals['500'].textContent = `${currencySymbol}${formatNumber(subtotal500)}`;
+            ui.subtotals['1000'].textContent = `${currencySymbol}${formatNumber(subtotal1000)}`;
+            ui.subtotals['2000'].textContent = `${currencySymbol}${formatNumber(subtotal2000)}`;
+            ui.subtotals['10000'].textContent = `${currencySymbol}${formatNumber(subtotal10000)}`;
+            ui.subtotals['20000'].textContent = `${currencySymbol}${formatNumber(subtotal20000)}`;
 
             // Update grand total
-            document.getElementById('grand-total').textContent = `${currencySymbol}${formatNumber(grandTotal)}`;
+            ui.grandTotal.textContent = `${currencySymbol}${formatNumber(grandTotal)}`;
 
             // Update counts
-            document.getElementById('count-500').textContent = formatNumber(bills500);
-            document.getElementById('count-1000').textContent = formatNumber(bills1000);
-            document.getElementById('count-2000').textContent = formatNumber(bills2000);
-            document.getElementById('count-10000').textContent = formatNumber(bills10000);
-            document.getElementById('count-20000').textContent = formatNumber(bills20000);
+            ui.counts['500'].textContent = formatNumber(bills500);
+            ui.counts['1000'].textContent = formatNumber(bills1000);
+            ui.counts['2000'].textContent = formatNumber(bills2000);
+            ui.counts['10000'].textContent = formatNumber(bills10000);
+            ui.counts['20000'].textContent = formatNumber(bills20000);
         }
 
         function clearAll() {
-            document.getElementById('bills-500').value = '';
-            document.getElementById('bills-1000').value = '';
-            document.getElementById('bills-2000').value = '';
-            document.getElementById('bills-10000').value = '';
-            document.getElementById('bills-20000').value = '';
+            // Use cached inputs
+            ui.inputs['500'].value = '';
+            ui.inputs['1000'].value = '';
+            ui.inputs['2000'].value = '';
+            ui.inputs['10000'].value = '';
+            ui.inputs['20000'].value = '';
             calculateTotals();
         }
 
@@ -343,15 +371,15 @@
             const currencySymbol = config.currency_symbol || defaultConfig.currency_symbol;
             const totalLabel = config.total_label || defaultConfig.total_label;
 
-            document.getElementById('calculator-title').textContent = title;
-            document.getElementById('total-label').textContent = totalLabel;
-            
-            // Update currency symbols
-            document.getElementById('currency-500').textContent = currencySymbol;
-            document.getElementById('currency-1000').textContent = currencySymbol;
-            document.getElementById('currency-2000').textContent = currencySymbol;
-            document.getElementById('currency-10000').textContent = currencySymbol;
-            document.getElementById('currency-20000').textContent = currencySymbol;
+            ui.calculatorTitle.textContent = title;
+            ui.totalLabel.textContent = totalLabel;
+
+            // Update currency symbols using cached elements
+            ui.currencies['500'].textContent = currencySymbol;
+            ui.currencies['1000'].textContent = currencySymbol;
+            ui.currencies['2000'].textContent = currencySymbol;
+            ui.currencies['10000'].textContent = currencySymbol;
+            ui.currencies['20000'].textContent = currencySymbol;
 
             // Recalculate with new currency symbol
             calculateTotals();
@@ -388,7 +416,7 @@
         function toggleDarkMode() {
             const body = document.body;
             const themeButton = document.getElementById('theme-toggle');
-            
+
             if (body.classList.contains('light-theme')) {
                 // Switch to dark theme
                 body.classList.remove('light-theme');
@@ -408,7 +436,7 @@
         function toggleColorTheme() {
             const body = document.body;
             const totalCard = document.querySelector('.total-card');
-            
+
             if (body.classList.contains('red-theme')) {
                 body.classList.remove('red-theme');
                 totalCard.classList.remove('pulse-glow');
