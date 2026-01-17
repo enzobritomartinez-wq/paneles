@@ -1343,11 +1343,18 @@
         </div>
     </div>
     <script>
+        // Cache for pages
+        let cachedPages = null;
+
         // Función para mostrar páginas
         function showPage(pageId) {
+            // Initialize cache if needed
+            if (!cachedPages) {
+                cachedPages = document.querySelectorAll('.page');
+            }
+
             // Ocultar todas las páginas
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => {
+            cachedPages.forEach(page => {
                 page.classList.remove('active');
             });
 
@@ -1682,4 +1689,3 @@
 </body>
 
 </html>
-
