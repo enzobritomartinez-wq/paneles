@@ -348,16 +348,16 @@
                             <h3 class="text-white font-semibold text-lg">Catálogo</h3>
                         </div>
                     </div>
-                </div><!-- 11. Lista 0KM -->
+                </div><!-- 11. Precios 0KM -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://docs.google.com/spreadsheets/d/1IqMd5v7g_G92gwYX6nyymEbjwNc8OMUxk8DmQKs-4i8/edit?usp=sharing')">
+                onclick="showPage('precios0kmMenu')">
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 flex items-center justify-center text-white text-xl mr-4">
                             💰
                         </div>
                         <div>
-                            <h3 class="text-white font-semibold text-lg">Lista 0KM</h3>
+                            <h3 class="text-white font-semibold text-lg">Precios 0KM</h3>
                         </div>
                     </div>
                 </div><!-- 12. Circulares -->
@@ -865,6 +865,61 @@
                         </div>
                         <div>
                             <h3 class="text-white font-semibold text-2xl">Matias Ibañez</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- PÁGINA DE PRECIOS 0KM -->
+    <div id="precios0kmMenu" class="page">
+        <div class="max-w-4xl mx-auto fade-in">
+            <!-- Back Button -->
+            <div class="mb-8">
+                <button onclick="showPage('mainMenu')"
+                    class="back-button glass-effect rounded-xl px-6 py-3 text-white font-medium flex items-center space-x-2 hover:bg-white/20">
+                    <span class="text-xl">←</span> <span>Volver al Menú</span>
+                </button>
+            </div>
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div
+                    class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center overflow-hidden">
+                    <!-- Logo personalizado -->
+                    <img src="https://i.imgur.com/zv99dUA.png" alt="Logo"
+                        class="w-full h-full object-cover rounded-full" style="display: block;"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="w-full h-full flex items-center justify-center text-4xl" style="display: none;">
+                        🚗
+                    </div>
+                </div>
+                <h1 class="text-4xl font-bold text-white mb-2">Precios 0KM</h1>
+                <p class="text-white/80 text-lg">Elegí el tipo de precios que necesitás consultar</p>
+            </div>
+            <!-- Opciones de Precios 0KM -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
+                <!-- PRECIOS EN EXCEL -->
+                <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer"
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/1IqMd5v7g_G92gwYX6nyymEbjwNc8OMUxk8DmQKs-4i8/edit?usp=sharing')">
+                    <div class="flex items-center">
+                        <div
+                            class="w-20 h-20 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 flex items-center justify-center text-white text-xl mr-6">
+                            💾
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-2xl">PRECIOS EN EXCEL</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- PRECIOS INTERNO -->
+                <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer"
+                    onclick="openLink('http://192.168.100.52/cerokm/')">
+                    <div class="flex items-center">
+                        <div
+                            class="w-20 h-20 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 flex items-center justify-center text-white text-xl mr-6">
+                            🏢
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-2xl">PRECIOS INTERNO</h3>
                         </div>
                     </div>
                 </div>
