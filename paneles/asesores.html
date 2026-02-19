@@ -17,6 +17,7 @@
         .link-card {
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            position: relative;
         }
 
         .link-card:hover {
@@ -74,6 +75,122 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        /* Estilos para pines */
+        .pinned-section {
+            margin-bottom: 1.5rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .pinned-section h2 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pinned-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .pinned-link-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pinned-link-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .pin-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            z-index: 10;
+        }
+
+        .edit-mode .pin-button {
+            display: flex;
+        }
+
+        .pinned-link-card .pin-button {
+            display: flex;
+            position: relative;
+            top: auto;
+            right: auto;
+        }
+
+        .pin-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .pin-button.pinned {
+            background: rgba(34, 197, 94, 0.8);
+            color: white;
+        }
+
+        .edit-mode-indicator {
+            position: fixed;
+            top: 4rem;
+            right: 1rem;
+            background: rgba(34, 197, 94, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            z-index: 40;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .edit-mode .edit-mode-indicator {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .link-card.pinned-hidden {
+            display: none;
         }
     </style>
     <style>
@@ -199,9 +316,16 @@
             class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-white text-xl hover:bg-white/20 transition-all duration-300"
             title="Abrir menú"> ☰ </button>
     </div><!-- Botón de cambio de tema -->
-    <div class="fixed top-4 right-4 z-50"><button onclick="toggleTheme()"
+    <div class="fixed top-4 right-4 z-50 flex gap-2">
+        <button onclick="toggleEditMode()"
+            class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-white text-xl hover:bg-white/20 transition-all duration-300"
+            title="Modo edición"> ✏️ </button>
+        <button onclick="toggleTheme()"
             class="w-12 h-12 rounded-full glass-effect flex items-center justify-center text-white text-xl hover:bg-white/20 transition-all duration-300"
             title="Cambiar tema"> 🎨 </button>
+    </div><!-- Indicador de modo edición -->
+    <div id="editModeIndicator" class="edit-mode-indicator">
+        ✏️ Modo edición activado
     </div><!-- Overlay para cerrar sidebar en móvil -->
     <div id="sidebarOverlay"
         class="fixed inset-0 bg-black/50 z-30 opacity-0 pointer-events-none transition-opacity duration-300"></div>
@@ -219,9 +343,18 @@
                         🚗
                     </div>
                 </div>
+            </div><!-- Sección de enlaces fijados -->
+            <div id="pinnedSection" class="pinned-section" style="display: none;">
+                <h2>📌 Enlaces Fijados</h2>
+                <div id="pinnedLinks" class="pinned-links"></div>
             </div><!-- Enlaces Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32">                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('http://192.168.100.52/catalogo_autos/catalogo.php')">
+                    onclick="openLink('http://192.168.100.52/catalogo_autos/catalogo.php')"
+                    data-link-id="catalogo-interno"
+                    data-link-title="Catálogo Interno"
+                    data-link-url="http://192.168.100.52/catalogo_autos/catalogo.php"
+                    data-link-icon="🚗">
+                    <button class="pin-button" onclick="togglePin(event, 'catalogo-interno')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 flex items-center justify-center text-white text-xl mr-4">
@@ -233,7 +366,12 @@
                     </div>
                 </div><!-- 1. Desempeño de Asesores -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('http://192.168.100.52/bymsite/resumen.php')">
+                    onclick="openLink('http://192.168.100.52/bymsite/resumen.php')"
+                    data-link-id="desempeno-asesores"
+                    data-link-title="Desempeño de Asesores"
+                    data-link-url="http://192.168.100.52/bymsite/resumen.php"
+                    data-link-icon="📊">
+                    <button class="pin-button" onclick="togglePin(event, 'desempeno-asesores')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-violet-600 to-purple-700 flex items-center justify-center text-white text-xl mr-4">
@@ -244,7 +382,12 @@
                         </div>
                     </div>
                 </div><!-- 2. Préstamos -->
-                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('prestamos')">
+                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('prestamos')"
+                    data-link-id="prestamos"
+                    data-link-title="Préstamos"
+                    data-link-url="#prestamos"
+                    data-link-icon="🏦">
+                    <button class="pin-button" onclick="togglePin(event, 'prestamos')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-500 flex items-center justify-center text-white text-xl mr-4">
@@ -256,7 +399,12 @@
                     </div>
                 </div><!-- 3. Pedidos de Gerencia -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="showPage('pedidosGerencia')">
+                    onclick="showPage('pedidosGerencia')"
+                    data-link-id="pedidos-gerencia"
+                    data-link-title="Pedidos de Gerencia"
+                    data-link-url="#pedidos-gerencia"
+                    data-link-icon="📋">
+                    <button class="pin-button" onclick="togglePin(event, 'pedidos-gerencia')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl mr-4">
@@ -267,7 +415,12 @@
                         </div>
                     </div>
                 </div><!-- 4. Pago de Comisiones -->
-                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('pagoComisiones')">
+                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('pagoComisiones')"
+                    data-link-id="pago-comisiones"
+                    data-link-title="Pago de Comisiones"
+                    data-link-url="#pago-comisiones"
+                    data-link-icon="💰">
+                    <button class="pin-button" onclick="togglePin(event, 'pago-comisiones')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-600 to-emerald-700 flex items-center justify-center text-white text-xl mr-4">
@@ -279,7 +432,12 @@
                     </div>
                 </div><!-- 5. Unidad de Servicios Internos -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="showPage('unidadServicios')">
+                    onclick="showPage('unidadServicios')"
+                    data-link-id="unidad-servicios"
+                    data-link-title="Unidad de Servicios Internos"
+                    data-link-url="#unidad-servicios"
+                    data-link-icon="🔧">
+                    <button class="pin-button" onclick="togglePin(event, 'unidad-servicios')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-slate-500 to-slate-600 flex items-center justify-center text-white text-xl mr-4 overflow-hidden">
@@ -291,7 +449,12 @@
                         </div>
                     </div>
                 </div><!-- 6. Común Acuerdo -->
-                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('comunAcuerdo')">
+                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('comunAcuerdo')"
+                    data-link-id="comun-acuerdo"
+                    data-link-title="Común Acuerdo"
+                    data-link-url="#comun-acuerdo"
+                    data-link-icon="🤝">
+                    <button class="pin-button" onclick="togglePin(event, 'comun-acuerdo')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center text-white text-xl mr-4">
@@ -303,7 +466,12 @@
                     </div>
                 </div><!-- 7. Listados Individuales -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="showPage('listadosIndividuales')">
+                    onclick="showPage('listadosIndividuales')"
+                    data-link-id="listados-individuales"
+                    data-link-title="Listados Individuales"
+                    data-link-url="#listados-individuales"
+                    data-link-icon="📝">
+                    <button class="pin-button" onclick="togglePin(event, 'listados-individuales')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center text-white text-xl mr-4">
@@ -314,7 +482,12 @@
                         </div>
                     </div>
                 </div><!-- 8. Listados SP -->
-                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('listadosSP')">
+                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('listadosSP')"
+                    data-link-id="listados-sp"
+                    data-link-title="Listados SP"
+                    data-link-url="#listados-sp"
+                    data-link-icon="🏷️">
+                    <button class="pin-button" onclick="togglePin(event, 'listados-sp')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 flex items-center justify-center text-white text-xl mr-4">
@@ -326,7 +499,12 @@
                     </div>
                 </div><!-- 9. Lista de Usados -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://docs.google.com/spreadsheets/d/1zDlLpq1B0ikijbGbd0-jOBA-ES_2pFSq0W-p0mvw5pA/edit?usp=sharing')">
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/1zDlLpq1B0ikijbGbd0-jOBA-ES_2pFSq0W-p0mvw5pA/edit?usp=sharing')"
+                    data-link-id="lista-usados"
+                    data-link-title="Lista de Usados"
+                    data-link-url="https://docs.google.com/spreadsheets/d/1zDlLpq1B0ikijbGbd0-jOBA-ES_2pFSq0W-p0mvw5pA/edit?usp=sharing"
+                    data-link-icon="🚗">
+                    <button class="pin-button" onclick="togglePin(event, 'lista-usados')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-xl mr-4">
@@ -338,7 +516,12 @@
                     </div>
                 </div><!-- 10. Catálogo -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://bymautomotores.psee.io/bymcatalogo')">
+                    onclick="openLink('https://bymautomotores.psee.io/bymcatalogo')"
+                    data-link-id="catalogo-bym"
+                    data-link-title="Catálogo"
+                    data-link-url="https://bymautomotores.psee.io/bymcatalogo"
+                    data-link-icon="📸">
+                    <button class="pin-button" onclick="togglePin(event, 'catalogo-bym')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center text-white text-xl mr-4">
@@ -350,7 +533,12 @@
                     </div>
                 </div><!-- 11. Precios 0KM -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                onclick="showPage('precios0kmMenu')">
+                onclick="showPage('precios0kmMenu')"
+                data-link-id="precios-0km"
+                data-link-title="Precios 0KM"
+                data-link-url="#precios-0km"
+                data-link-icon="💰">
+                <button class="pin-button" onclick="togglePin(event, 'precios-0km')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 flex items-center justify-center text-white text-xl mr-4">
@@ -361,7 +549,12 @@
                         </div>
                     </div>
                 </div><!-- 12. Circulares -->
-                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('circulares')">
+                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('circulares')"
+                    data-link-id="circulares"
+                    data-link-title="Circulares"
+                    data-link-url="#circulares"
+                    data-link-icon="📋">
+                    <button class="pin-button" onclick="togglePin(event, 'circulares')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-xl mr-4">
@@ -372,7 +565,12 @@
                         </div>
                     </div>
                 </div><!-- 13. Simuladores -->
-                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('simuladores')">
+                <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer" onclick="showPage('simuladores')"
+                    data-link-id="simuladores"
+                    data-link-title="Simuladores"
+                    data-link-url="#simuladores"
+                    data-link-icon="🧮">
+                    <button class="pin-button" onclick="togglePin(event, 'simuladores')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-xl mr-4">
@@ -384,7 +582,12 @@
                     </div>
                 </div><!-- 14. IUDÚ -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://carapp.iudu.com.ar/')">
+                    onclick="openLink('https://carapp.iudu.com.ar/')"
+                    data-link-id="iudu"
+                    data-link-title="IUDÚ"
+                    data-link-url="https://carapp.iudu.com.ar/"
+                    data-link-icon="📱">
+                    <button class="pin-button" onclick="togglePin(event, 'iudu')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden">
@@ -397,7 +600,12 @@
                     </div>
                 </div><!-- 15. Horarios Asesores -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://docs.google.com/spreadsheets/d/e/2PACX-1vTP5OZ6TRQqIK33WGnpaIUhJs81MZI8iQhMC2F-fiU497ZpC5OGzmf5JEXYC8Zi-OholrR0c9fO_jEn/pubhtml')">
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/e/2PACX-1vTP5OZ6TRQqIK33WGnpaIUhJs81MZI8iQhMC2F-fiU497ZpC5OGzmf5JEXYC8Zi-OholrR0c9fO_jEn/pubhtml')"
+                    data-link-id="horarios-asesores"
+                    data-link-title="Horarios Asesores"
+                    data-link-url="https://docs.google.com/spreadsheets/d/e/2PACX-1vTP5OZ6TRQqIK33WGnpaIUhJs81MZI8iQhMC2F-fiU497ZpC5OGzmf5JEXYC8Zi-OholrR0c9fO_jEn/pubhtml"
+                    data-link-icon="🕒">
+                    <button class="pin-button" onclick="togglePin(event, 'horarios-asesores')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xl mr-4">
@@ -409,7 +617,12 @@
                     </div>
                 </div><!-- 16. Fotos CE -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://usados.cenoa.com.ar/tienda-de-usados/')">
+                    onclick="openLink('https://usados.cenoa.com.ar/tienda-de-usados/')"
+                    data-link-id="fotos-ce"
+                    data-link-title="Fotos CE"
+                    data-link-url="https://usados.cenoa.com.ar/tienda-de-usados/"
+                    data-link-icon="🏢">
+                    <button class="pin-button" onclick="togglePin(event, 'fotos-ce')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-400 to-blue-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden">
@@ -422,7 +635,12 @@
                     </div>
                 </div><!-- 17. Fotos DYC -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://usados.dycar.com.ar/home')">
+                    onclick="openLink('https://usados.dycar.com.ar/home')"
+                    data-link-id="fotos-dyc"
+                    data-link-title="Fotos DYC"
+                    data-link-url="https://usados.dycar.com.ar/home"
+                    data-link-icon="🏪">
+                    <button class="pin-button" onclick="togglePin(event, 'fotos-dyc')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-400 to-purple-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden">
@@ -435,7 +653,12 @@
                     </div>
                 </div><!-- 18. Fotos AJ -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://www.autojujuy.com.ar/usados')">
+                    onclick="openLink('https://www.autojujuy.com.ar/usados')"
+                    data-link-id="fotos-aj"
+                    data-link-title="Fotos AJ"
+                    data-link-url="https://www.autojujuy.com.ar/usados"
+                    data-link-icon="🏬">
+                    <button class="pin-button" onclick="togglePin(event, 'fotos-aj')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden">
@@ -448,7 +671,12 @@
                     </div>
                 </div><!-- Fotos ByM -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://drive.google.com/drive/folders/1FLrVWJ3t0TrIbXDapvuQysA0IaQcUGFX?usp=sharing')">
+                    onclick="openLink('https://drive.google.com/drive/folders/1FLrVWJ3t0TrIbXDapvuQysA0IaQcUGFX?usp=sharing')"
+                    data-link-id="fotos-bym"
+                    data-link-title="Fotos ByM"
+                    data-link-url="https://drive.google.com/drive/folders/1FLrVWJ3t0TrIbXDapvuQysA0IaQcUGFX?usp=sharing"
+                    data-link-icon="🟢">
+                    <button class="pin-button" onclick="togglePin(event, 'fotos-bym')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-400 to-green-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden">
@@ -462,7 +690,12 @@
                     </div>
                 </div><!-- Placas 0KM -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://drive.google.com/drive/folders/12bSgPtvJmNrwUMabWUaSTyld5-dXQHC9?usp=drive_link')">
+                    onclick="openLink('https://drive.google.com/drive/folders/12bSgPtvJmNrwUMabWUaSTyld5-dXQHC9?usp=drive_link')"
+                    data-link-id="placas-0km"
+                    data-link-title="Placas 0KM"
+                    data-link-url="https://drive.google.com/drive/folders/12bSgPtvJmNrwUMabWUaSTyld5-dXQHC9?usp=drive_link"
+                    data-link-icon="🟢">
+                    <button class="pin-button" onclick="togglePin(event, 'placas-0km')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-lime-400 to-emerald-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden">
@@ -476,7 +709,12 @@
                     </div>
                 </div><!-- 19. Pedidos Asesores -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://docs.google.com/spreadsheets/d/1JqBB-srHTGGzdRpMXtrPFwW2dEAoZzMuJDx4kgOOwmI/edit?usp=sharing')">
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/1JqBB-srHTGGzdRpMXtrPFwW2dEAoZzMuJDx4kgOOwmI/edit?usp=sharing')"
+                    data-link-id="pedidos-asesores"
+                    data-link-title="Pedidos Asesores"
+                    data-link-url="https://docs.google.com/spreadsheets/d/1JqBB-srHTGGzdRpMXtrPFwW2dEAoZzMuJDx4kgOOwmI/edit?usp=sharing"
+                    data-link-icon="📋">
+                    <button class="pin-button" onclick="togglePin(event, 'pedidos-asesores')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xl mr-4">
@@ -488,7 +726,12 @@
                     </div>
                 </div><!-- 20. Estimador de Costos -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://www2.jus.gov.ar/dnrpa-site/#!/estimador')">
+                    onclick="openLink('https://www2.jus.gov.ar/dnrpa-site/#!/estimador')"
+                    data-link-id="estimador-costos"
+                    data-link-title="Estimador de Costos"
+                    data-link-url="https://www2.jus.gov.ar/dnrpa-site/#!/estimador"
+                    data-link-icon="🧾">
+                    <button class="pin-button" onclick="togglePin(event, 'estimador-costos')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-center text-white text-xl mr-4 overflow-hidden">
@@ -501,7 +744,12 @@
                     </div>
                 </div><!-- 21. Listado para Clientes -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://docs.google.com/spreadsheets/d/1r6aG1CvyGgQJl_Qp1CtlKNS6h0veIFZ3LMmFLu3Uvl0/edit?gid=832947285#gid=832947285')">
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/1r6aG1CvyGgQJl_Qp1CtlKNS6h0veIFZ3LMmFLu3Uvl0/edit?gid=832947285#gid=832947285')"
+                    data-link-id="listado-clientes"
+                    data-link-title="Listado para Clientes"
+                    data-link-url="https://docs.google.com/spreadsheets/d/1r6aG1CvyGgQJl_Qp1CtlKNS6h0veIFZ3LMmFLu3Uvl0/edit?gid=832947285#gid=832947285"
+                    data-link-icon="👥">
+                    <button class="pin-button" onclick="togglePin(event, 'listado-clientes')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 flex items-center justify-center text-white text-xl mr-4">
@@ -513,7 +761,12 @@
                     </div>
                 </div><!-- 22. Manual de Convivencia -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://docs.google.com/document/d/15nJScqCvD_I2Szj7mgB6uiXs1Tpmq1rUK3qRsA8wKpc/edit?usp=sharing')">
+                    onclick="openLink('https://docs.google.com/document/d/15nJScqCvD_I2Szj7mgB6uiXs1Tpmq1rUK3qRsA8wKpc/edit?usp=sharing')"
+                    data-link-id="manual-convivencia"
+                    data-link-title="Manual de Convivencia"
+                    data-link-url="https://docs.google.com/document/d/15nJScqCvD_I2Szj7mgB6uiXs1Tpmq1rUK3qRsA8wKpc/edit?usp=sharing"
+                    data-link-icon="📖">
+                    <button class="pin-button" onclick="togglePin(event, 'manual-convivencia')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-violet-500 to-purple-600 flex items-center justify-center text-white text-xl mr-4">
@@ -525,7 +778,12 @@
                     </div>
                 </div><!-- 23. Seguimientos Juanchi -->
                 <div class="link-card glass-effect rounded-2xl p-6 cursor-pointer"
-                    onclick="openLink('https://docs.google.com/spreadsheets/d/1KHqSaFzsm0Phn9zJiUtXXzVYisjNzzXoKwmDV-XnW8g/edit?usp=sharing')">
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/1KHqSaFzsm0Phn9zJiUtXXzVYisjNzzXoKwmDV-XnW8g/edit?usp=sharing')"
+                    data-link-id="seguimientos-juanchi"
+                    data-link-title="Seguimientos Juanchi"
+                    data-link-url="https://docs.google.com/spreadsheets/d/1KHqSaFzsm0Phn9zJiUtXXzVYisjNzzXoKwmDV-XnW8g/edit?usp=sharing"
+                    data-link-icon="📊">
+                    <button class="pin-button" onclick="togglePin(event, 'seguimientos-juanchi')">📌</button>
                     <div class="flex items-center">
                         <div
                             class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white text-xl mr-4">
@@ -1656,6 +1914,186 @@
 
 
 
+        // Función para manejar pines
+        function togglePin(event, linkId) {
+            event.stopPropagation();
+            
+            const button = event.currentTarget;
+            
+            // Obtener información del enlace desde localStorage si no viene de una tarjeta original
+            let linkTitle, linkUrl, linkIcon;
+            
+            const pinnedLinks = JSON.parse(localStorage.getItem('pinnedLinks') || '[]');
+            const existingLink = pinnedLinks.find(link => link.id === linkId);
+            
+            if (existingLink) {
+                // Viene de un enlace fijado - usar datos guardados
+                linkTitle = existingLink.title;
+                linkUrl = existingLink.url;
+                linkIcon = existingLink.icon;
+            } else {
+                // Viene de una tarjeta original - obtener datos de la tarjeta
+                const linkCard = button.closest('.link-card');
+                if (!linkCard) return;
+                
+                linkTitle = linkCard.dataset.linkTitle;
+                linkUrl = linkCard.dataset.linkUrl;
+                linkIcon = linkCard.dataset.linkIcon;
+            }
+            
+            // Obtener pines actuales
+            let currentPinnedLinks = JSON.parse(localStorage.getItem('pinnedLinks') || '[]');
+            
+            const existingIndex = currentPinnedLinks.findIndex(link => link.id === linkId);
+            
+            if (existingIndex > -1) {
+                // Despin
+                currentPinnedLinks.splice(existingIndex, 1);
+                
+                // Mostrar la tarjeta original si existe
+                const originalCard = document.querySelector(`.link-card[data-link-id="${linkId}"]`);
+                if (originalCard) {
+                    originalCard.classList.remove('pinned-hidden');
+                    const originalPinButton = originalCard.querySelector('.pin-button');
+                    if (originalPinButton) {
+                        originalPinButton.classList.remove('pinned');
+                        originalPinButton.textContent = '📌';
+                    }
+                }
+            } else {
+                // Pin
+                currentPinnedLinks.push({
+                    id: linkId,
+                    title: linkTitle,
+                    url: linkUrl,
+                    icon: linkIcon
+                });
+                
+                // Ocultar la tarjeta original
+                const originalCard = document.querySelector(`.link-card[data-link-id="${linkId}"]`);
+                if (originalCard) {
+                    originalCard.classList.add('pinned-hidden');
+                    const originalPinButton = originalCard.querySelector('.pin-button');
+                    if (originalPinButton) {
+                        originalPinButton.classList.add('pinned');
+                        originalPinButton.textContent = '📌';
+                    }
+                }
+            }
+            
+            // Guardar en localStorage
+            localStorage.setItem('pinnedLinks', JSON.stringify(currentPinnedLinks));
+            
+            // Actualizar interfaz
+            updatePinnedSection();
+        }
+
+        // Función para actualizar la sección de pines
+        function updatePinnedSection() {
+            const pinnedLinks = JSON.parse(localStorage.getItem('pinnedLinks') || '[]');
+            const pinnedSection = document.getElementById('pinnedSection');
+            const pinnedLinksContainer = document.getElementById('pinnedLinks');
+            
+            if (pinnedLinks.length === 0) {
+                pinnedSection.style.display = 'none';
+                return;
+            }
+            
+            pinnedSection.style.display = 'block';
+            pinnedLinksContainer.innerHTML = '';
+            
+            pinnedLinks.forEach(link => {
+                const linkCard = document.createElement('div');
+                linkCard.className = 'pinned-link-card';
+                
+                // Crear contenedor para el contenido clickeable
+                const contentContainer = document.createElement('div');
+                contentContainer.style.cssText = 'display: flex; align-items: center; gap: 1rem; flex: 1; cursor: pointer;';
+                contentContainer.onclick = () => {
+                    if (link.url.startsWith('#')) {
+                        showPage(link.url.substring(1));
+                    } else {
+                        openLink(link.url);
+                    }
+                };
+                
+                contentContainer.innerHTML = `
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl">
+                        ${link.icon}
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-white font-semibold text-lg">${link.title}</h4>
+                    </div>
+                `;
+                
+                // Crear botón de pin
+                const pinButton = document.createElement('button');
+                pinButton.className = 'pin-button pinned';
+                pinButton.onclick = (event) => {
+                    event.stopPropagation();
+                    togglePin(event, link.id);
+                };
+                pinButton.textContent = '📌';
+                
+                linkCard.appendChild(contentContainer);
+                linkCard.appendChild(pinButton);
+                
+                pinnedLinksContainer.appendChild(linkCard);
+            });
+        }
+
+        // Función para inicializar pines
+        function initializePins() {
+            const pinnedLinks = JSON.parse(localStorage.getItem('pinnedLinks') || '[]');
+            
+            // Actualizar botones de pin existentes y ocultar tarjetas fijadas
+            document.querySelectorAll('.link-card').forEach(card => {
+                const linkId = card.dataset.linkId;
+                const pinButton = card.querySelector('.pin-button');
+                
+                if (linkId && pinButton) {
+                    const isPinned = pinnedLinks.some(link => link.id === linkId);
+                    if (isPinned) {
+                        pinButton.classList.add('pinned');
+                        pinButton.textContent = '📌';
+                        // Ocultar la tarjeta original si está fijada
+                        card.classList.add('pinned-hidden');
+                    }
+                }
+            });
+            
+            // Actualizar sección de pines
+            updatePinnedSection();
+        }
+
+        // Función para activar/desactivar modo edición
+        function toggleEditMode() {
+            const body = document.body;
+            const editButton = event.currentTarget;
+            
+            body.classList.toggle('edit-mode');
+            
+            const isEditMode = body.classList.contains('edit-mode');
+            
+            // Guardar preferencia en localStorage
+            localStorage.setItem('editMode', isEditMode);
+            
+            // Cambiar apariencia del botón
+            if (isEditMode) {
+                editButton.style.background = 'rgba(34, 197, 94, 0.8)';
+                editButton.style.transform = 'scale(1.1)';
+            } else {
+                editButton.style.background = '';
+                editButton.style.transform = '';
+            }
+            
+            // Efecto visual
+            editButton.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                editButton.style.transform = isEditMode ? 'scale(1.1)' : 'scale(1)';
+            }, 150);
+        }
+
         // Función para cambiar tema
         function toggleTheme() {
             const body = document.body;
@@ -1712,6 +2150,20 @@
             if (savedTheme === 'true') {
                 document.body.classList.add('red-theme');
             }
+
+            // Cargar modo edición guardado
+            const savedEditMode = localStorage.getItem('editMode');
+            if (savedEditMode === 'true') {
+                document.body.classList.add('edit-mode');
+                const editButton = document.querySelector('[onclick="toggleEditMode()"]');
+                if (editButton) {
+                    editButton.style.background = 'rgba(34, 197, 94, 0.8)';
+                    editButton.style.transform = 'scale(1.1)';
+                }
+            }
+
+            // Inicializar pines
+            initializePins();
 
             // Accesibilidad: Hacer las tarjetas navegables por teclado
             document.querySelectorAll('.link-card').forEach(card => {
