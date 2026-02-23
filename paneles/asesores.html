@@ -1661,44 +1661,48 @@
 
         // Función para mostrar páginas
         function showPage(pageId) {
-            // Initialize cache if needed
+            // Inicializar cache si es necesario
             if (!cachedPages) {
                 cachedPages = document.querySelectorAll('.page');
             }
 
-            // Ocultar todas las páginas
+            // Buscar primero la página objetivo
+            const targetPage = document.getElementById(pageId);
+            if (!targetPage) {
+                console.warn('[panel-asesores] showPage: página no encontrada para id:', pageId);
+                return;
+            }
+
+            // Ocultar todas las páginas actuales
             cachedPages.forEach(page => {
                 page.classList.remove('active');
             });
 
-            // Mostrar la página solicitada
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
+            // Activar la página solicitada
+            targetPage.classList.add('active');
 
-                // Añadir animación de entrada
-                const content = targetPage.querySelector('.fade-in');
-                if (content) {
-                    content.style.animation = 'none';
-                    setTimeout(() => {
-                        content.style.animation = 'fadeIn 0.5s ease-in';
-                    }, 10);
-                }
-
-                // Animar las tarjetas
+            // Añadir animación de entrada
+            const content = targetPage.querySelector('.fade-in');
+            if (content) {
+                content.style.animation = 'none';
                 setTimeout(() => {
-                    const cards = targetPage.querySelectorAll('.link-card');
-                    cards.forEach((card, index) => {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            card.style.transition = 'all 0.5s ease';
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, index * 100);
-                    });
-                }, 100);
+                    content.style.animation = 'fadeIn 0.5s ease-in';
+                }, 10);
             }
+
+            // Animar las tarjetas
+            setTimeout(() => {
+                const cards = targetPage.querySelectorAll('.link-card');
+                cards.forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.transition = 'all 0.5s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 100);
         }
 
         // Función para abrir enlaces externos
@@ -1988,6 +1992,98 @@
             updatePinnedSection();
         }
 
+        // Mapa de destinos legacy para pines internos
+        const LEGACY_PINNED_TARGETS = {
+            '#pedidos-gerencia': 'pedidosGerencia',
+            '#pago-comisiones': 'pagoComisiones',
+            '#unidad-servicios': 'unidadServicios',
+            '#comun-acuerdo': 'comunAcuerdo',
+            '#listados-individuales': 'listadosIndividuales'
+        };
+
+        // Conversión genérica de slug con guiones a camelCase usado en IDs de página
+        function slugToPageId(slug) {
+            return slug
+                .split('-')
+                .map((part, index) => index === 0 ? part : (part.charAt(0).toUpperCase() + part.slice(1)))
+                .join('');
+        }
+
+        // Resolver destino interno correcto para un link fijado
+        function resolvePinnedInternalTarget(link) {
+            if (!link) return null;
+
+            // 1) Intentar resolver desde la tarjeta original usando data-link-id
+            if (link.id) {
+                const originalCard = document.querySelector(`.link-card[data-link-id="${link.id}"]`);
+                if (originalCard) {
+                    const onclick = originalCard.getAttribute('onclick') || '';
+                    const match = onclick.match(/showPage\('([^']+)'\)/);
+                    if (match && match[1]) {
+                        const pageId = match[1];
+                        if (document.getElementById(pageId)) {
+                            return pageId;
+                        }
+                    }
+                }
+            }
+
+            // 2) Fallback por hash legacy (#pago-comisiones -> pagoComisiones, etc.)
+            let hash = link.url || '';
+            if (!hash) return null;
+
+            let slug = hash;
+            if (hash.startsWith('#')) {
+                // Probar mapa explícito con el hash completo
+                if (LEGACY_PINNED_TARGETS[hash]) {
+                    const mappedId = LEGACY_PINNED_TARGETS[hash];
+                    if (document.getElementById(mappedId)) {
+                        return mappedId;
+                    }
+                }
+                slug = hash.slice(1);
+            }
+
+            // Probar mapa explícito solo con el slug (sin #)
+            if (LEGACY_PINNED_TARGETS[slug]) {
+                const mappedId = LEGACY_PINNED_TARGETS[slug];
+                if (document.getElementById(mappedId)) {
+                    return mappedId;
+                }
+            }
+
+            // 3) Conversión genérica slug -> camelCase y validar que exista
+            if (slug) {
+                const candidate = slugToPageId(slug);
+                if (document.getElementById(candidate)) {
+                    return candidate;
+                }
+            }
+
+            // No se pudo resolver
+            return null;
+        }
+
+        // Abrir un link fijado respetando si es interno o externo
+        function openPinnedLink(link) {
+            if (!link) return;
+
+            // Enlaces externos: se abren sin tocar la navegación interna
+            if (link.url && !link.url.startsWith('#')) {
+                openLink(link.url);
+                return;
+            }
+
+            // Enlaces internos: resolver pageId real
+            const targetPageId = resolvePinnedInternalTarget(link);
+            if (!targetPageId) {
+                console.warn('[panel-asesores] openPinnedLink: no se pudo resolver destino para link fijado', link);
+                return;
+            }
+
+            showPage(targetPageId);
+        }
+
         // Función para actualizar la sección de pines
         function updatePinnedSection() {
             const pinnedLinks = JSON.parse(localStorage.getItem('pinnedLinks') || '[]');
@@ -2010,11 +2106,7 @@
                 const contentContainer = document.createElement('div');
                 contentContainer.style.cssText = 'display: flex; align-items: center; gap: 1rem; flex: 1; cursor: pointer;';
                 contentContainer.onclick = () => {
-                    if (link.url.startsWith('#')) {
-                        showPage(link.url.substring(1));
-                    } else {
-                        openLink(link.url);
-                    }
+                    openPinnedLink(link);
                 };
                 
                 contentContainer.innerHTML = `
@@ -2040,6 +2132,42 @@
                 
                 pinnedLinksContainer.appendChild(linkCard);
             });
+        }
+
+        // Migrar automáticamente pines internos antiguos a formato normalizado
+        function migratePinnedLinks() {
+            let pinnedLinks = JSON.parse(localStorage.getItem('pinnedLinks') || '[]');
+            if (!Array.isArray(pinnedLinks) || pinnedLinks.length === 0) {
+                return;
+            }
+
+            let changed = false;
+
+            const migrated = pinnedLinks.map(link => {
+                if (!link || !link.url || !link.url.startsWith('#')) {
+                    return link;
+                }
+
+                const resolvedPageId = resolvePinnedInternalTarget(link);
+                if (!resolvedPageId) {
+                    return link;
+                }
+
+                const newUrl = `#${resolvedPageId}`;
+                if (newUrl !== link.url) {
+                    changed = true;
+                    return {
+                        ...link,
+                        url: newUrl
+                    };
+                }
+
+                return link;
+            });
+
+            if (changed) {
+                localStorage.setItem('pinnedLinks', JSON.stringify(migrated));
+            }
         }
 
         // Función para inicializar pines
@@ -2162,7 +2290,8 @@
                 }
             }
 
-            // Inicializar pines
+            // Migrar e inicializar pines
+            migratePinnedLinks();
             initializePins();
 
             // Accesibilidad: Hacer las tarjetas navegables por teclado
