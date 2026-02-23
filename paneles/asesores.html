@@ -98,20 +98,55 @@
 
         .pinned-links {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr)); /* mobile: 2 columnas compactas */
+            gap: 1rem;
         }
 
         .pinned-link-card {
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 1rem;
-            padding: 1.5rem;
+            padding: 1rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .pinned-link-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            cursor: pointer;
+            min-width: 0;
+        }
+
+        .pinned-link-icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 0.75rem;
+            background-image: linear-gradient(to right, #3b82f6, #8b5cf6); /* from-blue-500 to-purple-600 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+
+        .pinned-link-title {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .pinned-link-card:hover {
@@ -147,6 +182,28 @@
             position: relative;
             top: auto;
             right: auto;
+        }
+
+        @media (min-width: 768px) {
+            .pinned-links {
+                gap: 1.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .pinned-links {
+                grid-template-columns: repeat(3, minmax(0, 1fr)); /* desktop: 3 columnas como antes */
+                gap: 1.5rem;
+            }
+
+            .pinned-link-card {
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            .pinned-link-title {
+                font-size: 1rem;
+            }
         }
 
         .pin-button:hover {
@@ -1048,6 +1105,18 @@
                             <h3 class="text-white font-semibold text-2xl">Matias Ibañez</h3>
                         </div>
                     </div>
+                </div><!-- Leo Iglesias -->
+                <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer"
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/1ETvyMQFgh0CROEK9hrpIR-gQQSmk1LPgaW_4ogXnjps/edit?gid=0#gid=0')">
+                    <div class="flex items-center">
+                        <div
+                            class="w-20 h-20 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-xl mr-6">
+                            👨‍💼
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-2xl">Leo Iglesias</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1123,6 +1192,18 @@
                         </div>
                         <div>
                             <h3 class="text-white font-semibold text-2xl">Matias Ibañez</h3>
+                        </div>
+                    </div>
+                </div><!-- Leo Iglesias -->
+                <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer"
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/1P5SKGvGemdNRDO_WcQPQPWgsHYETZ4bvdB-cPbiWjGc/edit?usp=sharing')">
+                    <div class="flex items-center">
+                        <div
+                            class="w-20 h-20 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-xl mr-6">
+                            👨‍💼
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-2xl">Leo Iglesias</h3>
                         </div>
                     </div>
                 </div>
@@ -1323,6 +1404,18 @@
                             <h3 class="text-white font-semibold text-2xl">Matias Ibáñez</h3>
                         </div>
                     </div>
+                </div><!-- Leo Iglesias -->
+                <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer"
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/1L6mDUVi0lhFFVdoFMAaPaP8_yShaebANuOeDn1ij0ew/edit?usp=sharing')">
+                    <div class="flex items-center">
+                        <div
+                            class="w-20 h-20 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-xl mr-6">
+                            👨‍💼
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-2xl">Leo Iglesias</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1401,6 +1494,18 @@
                             <h3 class="text-white font-semibold text-2xl">Matias Ibáñez</h3>
                         </div>
                     </div>
+                </div><!-- Leo Iglesias -->
+                <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer"
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/18QqODdBIvuXa_s333hNqEQHkC9qN_DmhClMbF_eERHQ/edit?usp=sharing')">
+                    <div class="flex items-center">
+                        <div
+                            class="w-20 h-20 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-xl mr-6">
+                            👨‍💼
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-2xl">Leo Iglesias</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1476,6 +1581,18 @@
                         </div>
                         <div>
                             <h3 class="text-white font-semibold text-2xl">Matias Ibañez</h3>
+                        </div>
+                    </div>
+                </div><!-- Leo Iglesias -->
+                <div class="link-card glass-effect rounded-2xl p-8 cursor-pointer"
+                    onclick="openLink('https://docs.google.com/spreadsheets/d/1IZ6PULsKMNQ9tdJXdGpdxtXqeZiTl-KGc3vFbZNDuJA/edit?usp=sharing')">
+                    <div class="flex items-center">
+                        <div
+                            class="w-20 h-20 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-xl mr-6">
+                            👨‍💼
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-2xl">Leo Iglesias</h3>
                         </div>
                     </div>
                 </div>
@@ -2104,17 +2221,17 @@
                 
                 // Crear contenedor para el contenido clickeable
                 const contentContainer = document.createElement('div');
-                contentContainer.style.cssText = 'display: flex; align-items: center; gap: 1rem; flex: 1; cursor: pointer;';
+                contentContainer.className = 'pinned-link-content';
                 contentContainer.onclick = () => {
                     openPinnedLink(link);
                 };
                 
                 contentContainer.innerHTML = `
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl">
+                    <div class="pinned-link-icon">
                         ${link.icon}
                     </div>
-                    <div class="flex-1">
-                        <h4 class="text-white font-semibold text-lg">${link.title}</h4>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="pinned-link-title" title="${link.title}">${link.title}</h4>
                     </div>
                 `;
                 
